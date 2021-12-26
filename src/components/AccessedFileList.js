@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { FindSearchItem } from './FindSearchItem';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { files } from 'reducers/files';
 
 export const AccessedFileList = ({ accessedFileList, selectedFile }) => {
