@@ -10,6 +10,7 @@ import { useMediaQuery } from 'react-responsive';
 import { PersonDetails } from 'components/PersonDetails';
 import { AccessedPersonsList } from 'components/AccessedPersonList';
 import { FindSearchItem } from 'components/FindSearchItem';
+import { SubmitButton } from 'components/SubmitButton';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -75,7 +76,7 @@ export const PersonsDbScreen = () => {
                 value={searchString}
                 onChange={event => setSearchString(event.target.value)}
               ></NameInput>
-              <button>Submit</button>
+              <SubmitButton />
             </Form>
           </SearchInputContainer>
 

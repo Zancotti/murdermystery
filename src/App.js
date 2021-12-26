@@ -2,14 +2,13 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from '@reduxjs/toolkit';
-import { MenuSidebar } from 'components/MenuSidebar';
+import { MenuBar } from 'components/MenuBar';
 import { Header } from 'components/Header';
 import { ContentScreen } from 'screens/ContentScreen';
 import { screen } from 'reducers/screen';
 import { inbox } from 'reducers/inbox';
 import { persons } from 'reducers/persons';
 import { files } from 'reducers/files';
-
 
 const reducer = combineReducers({
   screen: screen.reducer,
@@ -25,9 +24,9 @@ export const App = () => {
       <Header />
       <Provider store={store}>
         <Content>
-          <MenuSidebarWrapper>
-            <MenuSidebar />
-          </MenuSidebarWrapper>
+          <MenuBarWrapper>
+            <MenuBar />
+          </MenuBarWrapper>
           <ContentScreen />
         </Content>
       </Provider>
@@ -54,7 +53,7 @@ const Content = styled.div`
   }
 `;
 
-const MenuSidebarWrapper = styled.div`
+const MenuBarWrapper = styled.div`
   @media (max-width: 667px) {
     position: fixed;
     width: 100%;

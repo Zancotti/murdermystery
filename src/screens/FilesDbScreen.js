@@ -10,6 +10,7 @@ import { FindSearchItem } from 'components/FindSearchItem';
 import { AccessedFileList } from 'components/AccessedFileList';
 import { FileDetails } from 'components/FileDetails';
 import { lightGrey, white } from 'styles/colors';
+import { SubmitButton } from 'components/SubmitButton';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -71,7 +72,7 @@ export const FilesDbScreen = () => {
                 value={searchString}
                 onChange={event => setSearchString(event.target.value)}
               ></NameInput>
-              <button>Submit</button>
+              <SubmitButton />
             </Form>
           </SearchInputContainer>
 

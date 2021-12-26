@@ -13,7 +13,7 @@ import { screen } from 'reducers/screen';
 import { screens } from 'constants/screens';
 import { accent } from 'styles/colors';
 
-export const MenuSidebar = () => {
+export const MenuBar = () => {
   const dispatch = useDispatch();
   const initialScreen = useSelector(store => store.screen.currentScreen);
   const [selectedMenuItem, setSelectedMenuItem] = useState(initialScreen);
@@ -76,7 +76,7 @@ const Container = styled.section`
   @media (max-width: 667px) {
     flex-direction: row;
     width: 100%;
-    height: 40px;
+    height: 60px;
     font-size: 20px;
     padding: 0;
     justify-content: space-evenly;

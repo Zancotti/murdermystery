@@ -50,8 +50,8 @@ const Container = styled.div`
   }
 
   @media (max-width: 667px) {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 40px;
