@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { lightGrey } from 'styles/colors';
 import { MailDetails } from 'components/MailDetails';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
 import { MailListItem } from 'components/MailListItem';
+import { API_MailList } from 'utils/urls';
+import { useDispatch, useSelector } from 'react-redux';
+import { inbox } from 'reducers/inbox';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const mails = useSelector(state => state.inbox.mails);
   const selectedMail = useSelector(state => state.inbox.selectedMail);
+  const mailList = useSelector(state => state.inbox.mailList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch(API_MailList)
+      .then(res => res.json())
+      .then(data => {
+        dispatch(inbox.actions.setMailList({ mailList: data }));
+      });
+  }, [dispatch]);
 
   return (
     <Container>
       {(!selectedMail || !isTabletOrMobile) && (
         <MailList>
-          {mails.map(mail => {
+          {mailList.map(mail => {
             return (
               <MailListItem
                 key={mail.id}

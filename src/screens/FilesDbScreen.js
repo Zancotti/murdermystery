@@ -11,10 +11,11 @@ import { AccessedFileList } from 'components/AccessedFileList';
 import { FileDetails } from 'components/FileDetails';
 import { lightGrey, white } from 'styles/colors';
 import { SubmitButton } from 'components/SubmitButton';
+import { API_FilesList } from 'utils/urls';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const fileList = useSelector(state => state.files.list);
+  const fileList = useSelector(state => state.files.fileList);
   const [searchString, setSearchString] = useState('');
   const [nameOnSubmit, setNameOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +25,15 @@ export const FilesDbScreen = () => {
   const selectedFile = useSelector(state => state.files.selectedFile);
 
   console.log('fileSearchResult', fileSearchResult);
+
+  useEffect(() => {
+    fetch(API_FilesList)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        dispatch(files.actions.setFileList({ fileList: data }));
+      });
+  }, [dispatch]);
 
   useEffect(() => {
     if (!nameOnSubmit) {

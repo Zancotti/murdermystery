@@ -1,25 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const fileList = [
-  {
-    id: 1,
-    name: 'Crime Scene report',
-    content: 'hej hej',
-  },
-  {
-    id: 2,
-    name: 'Autopicy report',
-    content: 'hej hej',
-  },
-  {
-    id: 3,
-    name: 'Witness report',
-    content: 'hej hej',
-  },
-];
-
 const initialState = {
-  list: fileList,
+  fileList: [],
   selectedFile: null,
   accessedFileList: [],
   fileSearchResult: null,
@@ -29,6 +11,11 @@ export const files = createSlice({
   name: 'files',
   initialState,
   reducers: {
+    setFileList: (state, action) => {
+      const { fileList } = action.payload;
+      state.fileList = fileList;
+    },
+
     setSelectedFile: (state, action) => {
       const { selectedFile } = action.payload;
       state.selectedFile = selectedFile;

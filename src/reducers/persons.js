@@ -1,34 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const personList = [
-  {
-    id: 1,
-    firstName: 'Sabrina',
-    lastName: 'Zancotti',
-    age: 31,
-  },
-  {
-    id: 2,
-    firstName: 'Amadeus',
-    lastName: 'Hein',
-    age: 32,
-  },
-  {
-    id: 3,
-    firstName: 'Sara',
-    lastName: 'Zancotti',
-    age: 35,
-  },
-  {
-    id: 4,
-    firstName: 'Zekija',
-    lastName: 'Zancotti',
-    age: 61,
-  },
-];
-
 const initialState = {
-  list: personList,
+  personList: [],
   selectedPerson: null,
   accessedPersonList: [],
   personSearchResult: null,
@@ -38,6 +11,11 @@ export const persons = createSlice({
   name: 'persons',
   initialState,
   reducers: {
+    setPersonList: (state, action) => {
+      const { personList } = action.payload;
+      state.personList = personList;
+    },
+
     setSelectedPerson: (state, action) => {
       const { selectedPerson } = action.payload;
       state.selectedPerson = selectedPerson;
@@ -56,3 +34,29 @@ export const persons = createSlice({
     },
   },
 });
+// const personList = [
+//   {
+//     id: 1,
+//     firstName: 'Sabrina',
+//     lastName: 'Zancotti',
+//     age: 31,
+//   },
+//   {
+//     id: 2,
+//     firstName: 'Amadeus',
+//     lastName: 'Hein',
+//     age: 32,
+//   },
+//   {
+//     id: 3,
+//     firstName: 'Sara',
+//     lastName: 'Zancotti',
+//     age: 35,
+//   },
+//   {
+//     id: 4,
+//     firstName: 'Zekija',
+//     lastName: 'Zancotti',
+//     age: 61,
+//   },
+// ];
