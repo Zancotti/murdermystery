@@ -1,5 +1,4 @@
-export const API_MailList = 'https://murdermystery-backend.herokuapp.com/mails';
-export const API_PersonList =
-  'https://murdermystery-backend.herokuapp.com/persons';
-export const API_FilesList =
-  'https://murdermystery-backend.herokuapp.com/files';
+// const Base_URL = 'https://murdermystery-backend.herokuapp.com';
+const Base_URL = 'http://localhost:8080';
+
+export const API_URL = slug => `${Base_URL}/${slug}`;

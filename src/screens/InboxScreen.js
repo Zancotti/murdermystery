@@ -4,23 +4,32 @@ import { lightGrey } from 'styles/colors';
 import { MailDetails } from 'components/MailDetails';
 import { useMediaQuery } from 'react-responsive';
 import { MailListItem } from 'components/MailListItem';
-import { API_MailList } from 'utils/urls';
+import { API_URL } from 'utils/urls';
 import { useDispatch, useSelector } from 'react-redux';
 import { inbox } from 'reducers/inbox';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const selectedMail = useSelector(state => state.inbox.selectedMail);
+  const loggedInUser = useSelector(state => state.user.user);
   const mailList = useSelector(state => state.inbox.mailList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(API_MailList)
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: loggedInUser.accessToken,
+      },
+    };
+
+    fetch(API_URL('mails'), options)
       .then(res => res.json())
       .then(data => {
+        console.log('api response', data);
         dispatch(inbox.actions.setMailList({ mailList: data }));
       });
-  }, [dispatch]);
+  }, [dispatch, loggedInUser.accessToken]);
 
   return (
     <Container>

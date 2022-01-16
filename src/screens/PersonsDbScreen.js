@@ -11,7 +11,7 @@ import { PersonDetails } from 'components/PersonDetails';
 import { AccessedPersonsList } from 'components/AccessedPersonList';
 import { FindSearchItem } from 'components/FindSearchItem';
 import { SubmitButton } from 'components/SubmitButton';
-import { API_PersonList } from 'utils/urls';
+import { API_URL } from 'utils/urls';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -28,14 +28,22 @@ export const PersonsDbScreen = () => {
   );
 
   const selectedPerson = useSelector(state => state.persons.selectedPerson);
+  const loggedInUser = useSelector(state => state.user.user);
 
   useEffect(() => {
-    fetch(API_PersonList)
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: loggedInUser.accessToken,
+      },
+    };
+
+    fetch(API_URL('persons'), options)
       .then(res => res.json())
       .then(data => {
         dispatch(persons.actions.setPersonList({ personList: data }));
       });
-  }, [dispatch]);
+  }, [dispatch, loggedInUser.accessToken]);
 
   useEffect(() => {
     if (!nameOnSubmit) {
@@ -201,7 +209,7 @@ const SearchInputContainer = styled.div`
   display: flex;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  background: ${white};
+  background-color: ${white};
 `;
 
 const IconContainer = styled.div`

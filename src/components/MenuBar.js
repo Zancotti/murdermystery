@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -8,55 +8,47 @@ import {
   faFileSignature,
 } from '@fortawesome/pro-solid-svg-icons';
 import { MenuButton } from './MenuButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { screen } from 'reducers/screen';
-import { screens } from 'constants/screens';
 import { accent } from 'styles/colors';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const MenuBar = () => {
-  const dispatch = useDispatch();
-  const initialScreen = useSelector(store => store.screen.currentScreen);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(initialScreen);
-
-  useEffect(() => {
-    if (selectedMenuItem)
-      dispatch(screen.actions.setScreen({ screen: selectedMenuItem }));
-  }, [selectedMenuItem, dispatch]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Container>
       <MenuButton
         onClick={() => {
-          setSelectedMenuItem(screens.Inbox);
+          navigate('/mails');
         }}
         title="Mail Inbox"
         icon={<FontAwesomeIcon icon={faEnvelope} />}
-        isSelected={selectedMenuItem === screens.Inbox}
+        isSelected={location.pathname === '/mails'}
         displayAmountMessages={true}
       />
       <MenuButton
         onClick={() => {
-          setSelectedMenuItem(screens.PersonsDB);
+          navigate('/persons');
         }}
         title="Person Database"
         icon={<FontAwesomeIcon icon={faUsers} />}
-        isSelected={selectedMenuItem === screens.PersonsDB}
+        isSelected={location.pathname === '/persons'}
       />
       <MenuButton
         onClick={() => {
-          setSelectedMenuItem(screens.FilesDB);
+          navigate('/files');
         }}
         title="File Database"
         icon={<FontAwesomeIcon icon={faFileSearch} />}
-        isSelected={selectedMenuItem === screens.FilesDB}
+        isSelected={location.pathname === '/files'}
       />
       <MenuButton
         onClick={() => {
-          setSelectedMenuItem(screens.FinalReport);
+          navigate('/finalreport');
         }}
         title="Final Report"
         icon={<FontAwesomeIcon icon={faFileSignature} />}
-        isSelected={selectedMenuItem === screens.FinalReport}
+        isSelected={location.pathname === '/finalreport'}
       />
     </Container>
   );

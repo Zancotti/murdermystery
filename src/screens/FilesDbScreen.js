@@ -11,39 +11,47 @@ import { AccessedFileList } from 'components/AccessedFileList';
 import { FileDetails } from 'components/FileDetails';
 import { lightGrey, white } from 'styles/colors';
 import { SubmitButton } from 'components/SubmitButton';
-import { API_FilesList } from 'utils/urls';
+import { API_URL } from 'utils/urls';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const fileList = useSelector(state => state.files.fileList);
   const [searchString, setSearchString] = useState('');
-  const [nameOnSubmit, setNameOnSubmit] = useState(null);
+  const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const accessedFileList = useSelector(state => state.files.accessedFileList);
   const fileSearchResult = useSelector(state => state.files.fileSearchResult);
   const selectedFile = useSelector(state => state.files.selectedFile);
+  const loggedInUser = useSelector(state => state.user.user);
 
   console.log('fileSearchResult', fileSearchResult);
 
   useEffect(() => {
-    fetch(API_FilesList)
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: loggedInUser.accessToken,
+      },
+    };
+
+    fetch(API_URL('files'), options)
       .then(res => res.json())
       .then(data => {
         console.log(data);
         dispatch(files.actions.setFileList({ fileList: data }));
       });
-  }, [dispatch]);
+  }, [dispatch, loggedInUser.accessToken]);
 
   useEffect(() => {
-    if (!nameOnSubmit) {
+    if (!fileIdOnSubmit) {
       setTimeout(() => {
         setIsLoading(false);
       }, 2000);
       return;
     }
     const file = fileList.find(
-      file => file.name.toLowerCase() === nameOnSubmit.toLowerCase(),
+      file => file.fileId.toLowerCase() === fileIdOnSubmit.toLowerCase(),
     );
     console.log(file);
     dispatch(files.actions.setFileSearchResult({ file }));
@@ -54,7 +62,7 @@ export const FilesDbScreen = () => {
       }
       dispatch(files.actions.addAccessedFile({ file }));
     }, 2000);
-  }, [nameOnSubmit, accessedFileList, fileList, dispatch]);
+  }, [fileIdOnSubmit, accessedFileList, fileList, dispatch]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -62,7 +70,7 @@ export const FilesDbScreen = () => {
       return;
     }
     setIsLoading(true);
-    setNameOnSubmit(searchString);
+    setFileIdOnSubmit(searchString);
     setSearchString('');
   };
 
@@ -88,7 +96,7 @@ export const FilesDbScreen = () => {
 
           <MatchResult>
             {isLoading && <Loading />}
-            {nameOnSubmit && !isLoading && (
+            {fileIdOnSubmit && !isLoading && (
               <>{fileSearchResult ? 'We found a match' : 'No match found'}</>
             )}
           </MatchResult>
