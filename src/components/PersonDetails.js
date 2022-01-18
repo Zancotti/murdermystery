@@ -4,11 +4,14 @@ import { white } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
 import { persons } from 'reducers/persons';
+import ReactHtmlParser from 'react-html-parser';
+import { Base_URL } from 'utils/urls';
 
 import { BackButton } from './BackButton';
 export const PersonDetails = ({ selectedPerson }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const dispatch = useDispatch();
+  console.log(selectedPerson);
   return (
     <PersonDetailsContainer>
       {isTabletOrMobile && (
@@ -21,7 +24,8 @@ export const PersonDetails = ({ selectedPerson }) => {
         />
       )}
       <Container>
-        <Picture></Picture>
+        <IMG src={`${Base_URL}/media/persons/${selectedPerson.image}`} />
+
         <AttributesContainer>
           <Name>
             {selectedPerson.firstName + ' ' + selectedPerson.lastName + ' '}
@@ -29,6 +33,7 @@ export const PersonDetails = ({ selectedPerson }) => {
           </Name>
           <SocialSecurityNumber>{selectedPerson.id} </SocialSecurityNumber>
           <div>Date of birth</div>
+          <div></div>
           <div>Place of birth</div>
           <div>Height</div>
           <div>Eyes</div>
@@ -37,60 +42,7 @@ export const PersonDetails = ({ selectedPerson }) => {
           <div>Identifying marks</div>
         </AttributesContainer>
       </Container>
-
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum.
-      </Text>
+      <Text>{ReactHtmlParser(selectedPerson.info)}</Text>
     </PersonDetailsContainer>
   );
 };
@@ -119,11 +71,14 @@ const PersonDetailsContainer = styled.div`
   }
 `;
 
-const Picture = styled.div`
+const IMG = styled.img`
+  max-height: 170px;
+  max-width: 170px;
   height: 170px;
   width: 170px;
   background-color: black;
   margin-right: 20px;
+  position: center;
 `;
 
 const Container = styled.div`

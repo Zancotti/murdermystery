@@ -15,18 +15,19 @@ const reducer = combineReducers({
   user: user.reducer,
 });
 
-const persistedStateJSON = localStorage.getItem('ReduxState');
-let persistedState = {};
+// const persistedStateJSON = localStorage.getItem('ReduxState');
+// let persistedState = {};
 
-if (persistedStateJSON) {
-  persistedState = JSON.parse(persistedStateJSON);
-}
+// if (persistedStateJSON) {
+//   persistedState = JSON.parse(persistedStateJSON);
+// }
 
-const store = createStore(reducer, persistedState);
+// const store = createStore(reducer, persistedState);
+const store = createStore(reducer);
 
-store.subscribe(() => {
-  localStorage.setItem('ReduxState', JSON.stringify(store.getState()));
-});
+// store.subscribe(() => {
+//   localStorage.setItem('ReduxState', JSON.stringify(store.getState()));
+// });
 
 export const App = () => {
   return (
