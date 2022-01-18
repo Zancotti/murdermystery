@@ -33,9 +33,11 @@ const Container = styled.section`
   height: 100%;
   @media (max-width: 667px) {
     flex-direction: column;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     flex-direction: column;
+    padding: 10px 10px 70px 10px;
   }
 `;
 

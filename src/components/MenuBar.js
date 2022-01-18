@@ -64,21 +64,22 @@ const Container = styled.section`
   font-size: 30px;
   width: 70px;
   height: 100%;
+  min-height: 100vh;
   background-color: ${accent};
   @media (max-width: 667px) {
     flex-direction: row;
     width: 100%;
+    min-height: 60px;
     height: 60px;
     font-size: 20px;
-    padding: 0;
     justify-content: space-evenly;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     flex-direction: row;
     width: 100%;
+    min-height: 60px;
     font-size: 20px;
     height: 60px;
-    padding: 0;
     justify-content: space-evenly;
   }
 `;

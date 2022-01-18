@@ -56,6 +56,7 @@ const Container = styled.section`
   display: flex;
   height: 100%;
   width: 100%;
+  min-height: 100vh;
   @media (max-width: 667px) {
     flex-direction: column;
   }
@@ -72,11 +73,15 @@ const MailList = styled.div`
   @media (max-width: 667px) {
     width: 100%;
     height: 100%;
+    min-height: 100vh;
     margin: 0;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 100%;
     height: 100%;
+    min-height: 100vh;
     margin: 0;
+    padding: 10px 10px 70px 10px;
   }
 `;

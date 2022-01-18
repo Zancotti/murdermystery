@@ -114,9 +114,7 @@ export const FilesDbScreen = () => {
               }
             />
           )}
-          <div></div>
-          <div></div>
-          <div></div>
+
           {accessedFileList.length !== 0 && (
             <AccessedFileList
               accessedFileList={accessedFileList}
@@ -149,22 +147,24 @@ const SearchContainer = styled.div`
   grid-template-rows: auto auto auto auto 1fr 40%;
   padding: 10px;
   width: 40%;
+  height: 100%;
+  min-height: 100vh;
   background-color: ${lightGrey};
   border-radius: 10px;
   margin: 10px;
   @media (max-width: 667px) {
     width: 100%;
-    height: 100%;
     margin: 0;
     border-radius: 0;
     grid-template-rows: auto auto auto auto 1fr 20%;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     grid-template-rows: auto auto auto auto 1fr 20%;
     width: 100%;
-    height: 100%;
     margin: 0;
     border-radius: 0;
+    padding: 10px 10px 70px 10px;
   }
 `;
 

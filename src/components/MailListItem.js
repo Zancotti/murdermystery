@@ -50,7 +50,7 @@ const MailListItemContainer = styled.div`
   align-items: center;
   display: grid;
   grid-template-columns: auto 1fr auto auto;
-  margin: 10px;
+  margin: 10px 0;
   padding: 15px;
   border-radius: 5px;
   box-shadow: ${props =>
@@ -63,10 +63,12 @@ const MailListItemContainer = styled.div`
   @media (max-width: 667px) {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     background-color: ${white};
+    border-radius: 0;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     background-color: ${white};
+    border-radius: 0;
   }
 `;
 

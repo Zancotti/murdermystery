@@ -38,6 +38,7 @@ const Container = styled.div`
   align-items: center;
   position: relative;
   cursor: pointer;
+  z-index: 2;
   border-radius: 3px;
   width: 60px;
   height: 60px;
@@ -105,6 +106,7 @@ const MessagesContainer = styled.div`
     width: 16px;
     left: 18px;
   }
+
   @media (min-width: 668px) and (max-width: 1024px) {
     height: 16px;
     width: 16px;

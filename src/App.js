@@ -14,7 +14,19 @@ const reducer = combineReducers({
   files: files.reducer,
   user: user.reducer,
 });
-const store = createStore(reducer);
+
+const persistedStateJSON = localStorage.getItem('ReduxState');
+let persistedState = {};
+
+if (persistedStateJSON) {
+  persistedState = JSON.parse(persistedStateJSON);
+}
+
+const store = createStore(reducer, persistedState);
+
+store.subscribe(() => {
+  localStorage.setItem('ReduxState', JSON.stringify(store.getState()));
+});
 
 export const App = () => {
   return (
@@ -29,6 +41,7 @@ export const App = () => {
 const Page = styled.section`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
 `;

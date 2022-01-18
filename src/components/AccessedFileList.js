@@ -31,8 +31,6 @@ export const AccessedFileList = ({ accessedFileList, selectedFile }) => {
 };
 
 const Container = styled.div`
-  overflow-y: scroll;
-  max-height: 100%;
   @media (max-width: 667px) {
     padding-bottom: 30px;
   }

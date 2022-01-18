@@ -8,6 +8,7 @@ import { PersonsDbScreen } from 'screens/PersonsDbScreen';
 import { LoginScreen } from 'screens/LoginScreen';
 import { FilesDbScreen } from 'screens/FilesDbScreen';
 import { TelephoneScreen } from 'screens/TelephoneScreen';
+import { FinalReportScreen } from 'screens/FinalReportScreen';
 
 export const Main = () => {
   const isAuthenticated = true;
@@ -35,7 +36,7 @@ export const Main = () => {
                 <Route path="/mails" element={<InboxScreen />} />
                 <Route path="/persons" element={<PersonsDbScreen />} />
                 <Route path="/files" element={<FilesDbScreen />} />
-                <Route path="/finalreport" element={<div>Final Report</div>} />
+                <Route path="/finalreport" element={<FinalReportScreen />} />
                 <Route path="/telephone" element={<TelephoneScreen />} />
               </Routes>
             </MainContainer>

@@ -118,9 +118,7 @@ export const PersonsDbScreen = () => {
               selectedItem={selectedPerson}
             />
           )}
-          <div></div>
-          <div></div>
-          <div></div>
+
           {accessedPersonList.length !== 0 && (
             <AccessedPersonsList
               accessedPersonList={accessedPersonList}
@@ -137,13 +135,16 @@ export const PersonsDbScreen = () => {
 
 const Container = styled.section`
   display: flex;
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   @media (max-width: 667px) {
     flex-direction: column;
+    padding-bottom: 70px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     flex-direction: column;
+    padding-bottom: 70px;
   }
 `;
 
@@ -151,23 +152,24 @@ const SearchContainer = styled.div`
   box-sizing: border-box;
   display: grid;
   grid-template-rows: auto auto auto auto 1fr 40%;
-  padding: 10px;
   width: 40%;
   background-color: ${lightGrey};
   border-radius: 10px;
   margin: 10px;
+  padding: 10px;
+  min-height: 100vh;
   @media (max-width: 667px) {
-    width: 100%;
-    height: 100%;
-    margin: 0;
+    margin: 0px;
     border-radius: 0;
     grid-template-rows: auto auto auto auto 1fr 20%;
+    width: 100%;
+    height: 100%;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     grid-template-rows: auto auto auto auto 1fr 20%;
     width: 100%;
     height: 100%;
-    margin: 0;
+    margin: 0px;
     border-radius: 0;
   }
 `;
