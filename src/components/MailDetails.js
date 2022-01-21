@@ -6,6 +6,8 @@ import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
 import { inbox } from 'reducers/inbox';
 import { BackButton } from './BackButton';
+import ReactHtmlParser from 'react-html-parser';
+import { Base_URL } from 'utils/urls';
 
 export const MailDetails = () => {
   const selectedMail = useSelector(state => state.inbox.selectedMail);
@@ -26,10 +28,10 @@ export const MailDetails = () => {
       </MailCreatedAt>
       <MailSubject>{selectedMail.subject}</MailSubject>
       <MailIconFromContainer>
-        <MailIcon>{selectedMail.picture}</MailIcon>
+        <MailIcon src={`${Base_URL}/media/persons/${selectedMail.image}`} />
         <MailFrom>{selectedMail.from}</MailFrom>
       </MailIconFromContainer>
-      <MailText>{selectedMail.text}</MailText>
+      <MailText>{ReactHtmlParser(selectedMail.text)}</MailText>
     </MailDetailContainer>
   );
 };
@@ -71,7 +73,7 @@ const MailIconFromContainer = styled.div`
   padding-bottom: 10px;
 `;
 
-const MailIcon = styled.div`
+const MailIcon = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { white, accent, darkGrey } from 'styles/colors';
 import moment from 'moment';
+import { Base_URL } from 'utils/urls';
 
 const getTimeStamp = timeStamp => {
   const today = new Date();
@@ -21,13 +22,13 @@ export const MailListItem = ({ mail, selectedMail, isTabletOrMobile }) => {
   const dispatch = useDispatch();
   return (
     <MailListItemContainer
-      key={mail.id}
-      isSelected={selectedMail && selectedMail.id === mail.id}
+      key={mail._id}
+      isSelected={selectedMail && selectedMail._id === mail._id}
       onClick={() => {
         dispatch(inbox.actions.setSelectedMail({ selectedMail: mail }));
       }}
     >
-      <UserIconContainer>{mail.picture}</UserIconContainer>
+      <UserIconContainer src={`${Base_URL}/media/persons/${mail.image}`} />
       <NameSubjectContainer>
         <Name>{mail.from}</Name>
         <Subject>{mail.subject}</Subject>
@@ -50,7 +51,7 @@ const MailListItemContainer = styled.div`
   align-items: center;
   display: grid;
   grid-template-columns: auto 1fr auto auto;
-  margin: 10px 0;
+  margin: 10px 0px;
   padding: 15px;
   border-radius: 5px;
   box-shadow: ${props =>
@@ -91,7 +92,7 @@ const NameSubjectContainer = styled.div`
   flex-direction: column;
 `;
 
-const UserIconContainer = styled.div`
+const UserIconContainer = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;

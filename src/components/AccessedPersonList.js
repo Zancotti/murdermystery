@@ -12,7 +12,7 @@ export const AccessedPersonsList = ({ accessedPersonList, selectedPerson }) => {
       {accessedPersonList.map(person => {
         return (
           <FindSearchItem
-            key={person.id}
+            key={person._id}
             onClick={() =>
               dispatch(
                 persons.actions.setSelectedPerson({

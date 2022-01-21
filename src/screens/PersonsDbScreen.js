@@ -12,6 +12,7 @@ import { AccessedPersonsList } from 'components/AccessedPersonList';
 import { FindSearchItem } from 'components/FindSearchItem';
 import { SubmitButton } from 'components/SubmitButton';
 import { API_URL } from 'utils/urls';
+import { inbox } from 'reducers/inbox';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -107,13 +108,20 @@ export const PersonsDbScreen = () => {
 
           {personSearchResult && !isLoading && (
             <FindSearchItem
-              onClick={() =>
+              onClick={() => {
                 dispatch(
                   persons.actions.setSelectedPerson({
                     selectedPerson: personSearchResult,
                   }),
-                )
-              }
+                );
+                if (personSearchResult.triggersEvent) {
+                  dispatch(
+                    inbox.actions.addTriggeredEvent({
+                      event: personSearchResult.triggersEvent,
+                    }),
+                  );
+                }
+              }}
               item={personSearchResult}
               selectedItem={selectedPerson}
             />

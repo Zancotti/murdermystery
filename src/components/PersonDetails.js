@@ -29,17 +29,17 @@ export const PersonDetails = ({ selectedPerson }) => {
         <AttributesContainer>
           <Name>
             {selectedPerson.firstName + ' ' + selectedPerson.lastName + ' '}
-            <div>(alias)</div>
+            <div>{selectedPerson.alias}</div>
           </Name>
-          <SocialSecurityNumber>{selectedPerson.id} </SocialSecurityNumber>
-          <div>Date of birth</div>
-          <div></div>
-          <div>Place of birth</div>
-          <div>Height</div>
-          <div>Eyes</div>
-          <div>Hair</div>
-          <div>Bloodtype</div>
-          <div>Identifying marks</div>
+          <SocialSecurityNumber>
+            Social security number: {selectedPerson.socialSecurityNumber}
+          </SocialSecurityNumber>
+          <div>Date of birth: {selectedPerson.dateOfBirth}</div>
+          <div>Place of birth: {selectedPerson.placeOfBirth}</div>
+          <div>Height: {selectedPerson.height}</div>
+          <div>Eyecolor: {selectedPerson.eyes}</div>
+          <div>Haircolor: {selectedPerson.hair}</div>
+          <div>Blood type: {selectedPerson.bloodType}</div>
         </AttributesContainer>
       </Container>
       <Text>{ReactHtmlParser(selectedPerson.info)}</Text>
@@ -72,10 +72,10 @@ const PersonDetailsContainer = styled.div`
 `;
 
 const IMG = styled.img`
-  max-height: 170px;
-  max-width: 170px;
-  height: 170px;
-  width: 170px;
+  max-height: 150px;
+  max-width: 150px;
+  height: 150px;
+  width: 150px;
   background-color: black;
   margin-right: 20px;
   position: center;

@@ -13,7 +13,7 @@ export const AccessedFileList = ({ accessedFileList, selectedFile }) => {
       {accessedFileList.map(file => {
         return (
           <FindSearchItem
-            key={file.id}
+            key={file._id}
             onClick={() =>
               dispatch(
                 files.actions.setSelectedFile({

@@ -23,7 +23,7 @@ export const files = createSlice({
 
     addAccessedFile: (state, action) => {
       const { file } = action.payload;
-      if (!state.accessedFileList.find(f => f.id === file.id)) {
+      if (!state.accessedFileList.find(f => f._id === file._id)) {
         state.accessedFileList = [...state.accessedFileList, file];
       }
     },

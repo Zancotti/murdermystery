@@ -8,7 +8,7 @@ export const FindSearchItem = ({ item, selectedItem, onClick }) => {
   return (
     <Container
       onClick={onClick}
-      isSelected={selectedItem && selectedItem.id === item.id}
+      isSelected={selectedItem && selectedItem._id === item._id}
     >
       <FindIcon>
         <FontAwesomeIcon icon={faUser} />

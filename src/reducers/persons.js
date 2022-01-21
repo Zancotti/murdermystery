@@ -23,7 +23,7 @@ export const persons = createSlice({
 
     addAccessedPerson: (state, action) => {
       const { person } = action.payload;
-      if (!state.accessedPersonList.find(p => p.id === person.id)) {
+      if (!state.accessedPersonList.find(p => p._id === person._id)) {
         state.accessedPersonList = [...state.accessedPersonList, person];
       }
     },
