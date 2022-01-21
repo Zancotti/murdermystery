@@ -5,6 +5,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { white, darkGrey } from 'styles/colors';
 
 export const FindSearchItem = ({ item, selectedItem, onClick }) => {
+  console.log('selectedItem', selectedItem, 'item', item, 'onClick', onclick);
+
   return (
     <Container
       onClick={onClick}

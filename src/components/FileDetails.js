@@ -4,6 +4,7 @@ import { white } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
 import { files } from 'reducers/files';
+import ReactHtmlParser from 'react-html-parser';
 
 import { BackButton } from './BackButton';
 
@@ -21,7 +22,7 @@ export const FileDetails = ({ selectedFile }) => {
       )}
       <h3>{selectedFile.name}</h3>
       <span>{selectedFile.id}</span>
-      <span>{selectedFile.content}</span>
+      <span>{ReactHtmlParser(selectedFile.info)}</span>
     </Container>
   );
 };

@@ -104,7 +104,7 @@ export const FilesDbScreen = () => {
           {fileSearchResult && !isLoading && (
             <FindSearchItem
               item={fileSearchResult}
-              selected={selectedFile}
+              selectedItem={selectedFile}
               onClick={() =>
                 dispatch(
                   files.actions.setSelectedFile({
