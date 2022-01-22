@@ -62,10 +62,6 @@ export const PersonsDbScreen = () => {
     dispatch(persons.actions.setPersonSearchResult({ person }));
     setTimeout(() => {
       setIsLoading(false);
-      if (!person) {
-        return;
-      }
-      dispatch(persons.actions.addAccessedPerson({ person }));
     }, 2000);
   }, [nameOnSubmit, accessedPersonList, personList, dispatch]);
 
@@ -114,6 +110,12 @@ export const PersonsDbScreen = () => {
                     selectedPerson: personSearchResult,
                   }),
                 );
+                dispatch(
+                  persons.actions.addAccessedPerson({
+                    person: personSearchResult,
+                  }),
+                );
+
                 if (personSearchResult.triggersEvent) {
                   dispatch(
                     inbox.actions.addTriggeredEvent({

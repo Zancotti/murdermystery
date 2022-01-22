@@ -10,6 +10,7 @@ import {
 import { MenuButton } from './MenuButton';
 import { accent } from 'styles/colors';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { lightGrey } from 'styles/colors';
 
 export const MenuBar = () => {
   const navigate = useNavigate();
@@ -49,6 +50,14 @@ export const MenuBar = () => {
         title="Final Report"
         icon={<FontAwesomeIcon icon={faFileSignature} />}
         isSelected={location.pathname === '/finalreport'}
+      />
+      <MenuButton
+        onClick={() => {
+          navigate('/options');
+        }}
+        title="Options"
+        icon={<FontAwesomeIcon icon={faFileSignature} />}
+        isSelected={location.pathname === '/options'}
       />
     </Container>
   );

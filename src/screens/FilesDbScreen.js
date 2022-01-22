@@ -53,14 +53,9 @@ export const FilesDbScreen = () => {
     const file = fileList.find(
       file => file.fileId.toLowerCase() === fileIdOnSubmit.toLowerCase(),
     );
-    console.log(file);
     dispatch(files.actions.setFileSearchResult({ file }));
     setTimeout(() => {
       setIsLoading(false);
-      if (!file) {
-        return;
-      }
-      dispatch(files.actions.addAccessedFile({ file }));
     }, 2000);
   }, [fileIdOnSubmit, accessedFileList, fileList, dispatch]);
 
@@ -105,13 +100,16 @@ export const FilesDbScreen = () => {
             <FindSearchItem
               item={fileSearchResult}
               selectedItem={selectedFile}
-              onClick={() =>
+              onClick={() => {
                 dispatch(
                   files.actions.setSelectedFile({
                     selectedFile: fileSearchResult,
                   }),
-                )
-              }
+                );
+                dispatch(
+                  files.actions.addAccessedFile({ file: fileSearchResult }),
+                );
+              }}
             />
           )}
 
