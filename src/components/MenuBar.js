@@ -6,11 +6,11 @@ import {
   faFileSearch,
   faUsers,
   faFileSignature,
+  faSlidersV,
 } from '@fortawesome/pro-solid-svg-icons';
 import { MenuButton } from './MenuButton';
 import { accent } from 'styles/colors';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { lightGrey } from 'styles/colors';
 
 export const MenuBar = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ export const MenuBar = () => {
           navigate('/options');
         }}
         title="Options"
-        icon={<FontAwesomeIcon icon={faFileSignature} />}
+        icon={<FontAwesomeIcon icon={faSlidersV} />}
         isSelected={location.pathname === '/options'}
       />
     </Container>

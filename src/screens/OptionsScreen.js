@@ -5,7 +5,10 @@ import { lightGrey } from 'styles/colors';
 export const OptionsScreen = () => {
   return (
     <Container>
-      <Content></Content>
+      <Content>
+        <button></button>
+        <button></button>
+      </Content>
     </Container>
   );
 };
