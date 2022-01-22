@@ -13,6 +13,7 @@ import { FindSearchItem } from 'components/FindSearchItem';
 import { SearchButton } from 'components/SearchButton';
 import { API_URL } from 'utils/urls';
 import { inbox } from 'reducers/inbox';
+import { Container } from 'styles/Container';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -86,7 +87,7 @@ export const PersonsDbScreen = () => {
     <Container>
       {(!selectedPerson || !isTabletOrMobile) && (
         <SearchContainer>
-          <Header>Person Database</Header>
+          <h1>Person Database</h1>
           <SearchInputContainer>
             <IconContainer>
               <FontAwesomeIcon icon={faSearch} />
@@ -151,21 +152,6 @@ export const PersonsDbScreen = () => {
   );
 };
 
-const Container = styled.section`
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  height: 100%;
-  @media (max-width: 667px) {
-    flex-direction: column;
-    padding-bottom: 70px;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    flex-direction: column;
-    padding-bottom: 70px;
-  }
-`;
-
 const SearchContainer = styled.div`
   box-sizing: border-box;
   display: grid;
@@ -173,9 +159,8 @@ const SearchContainer = styled.div`
   width: 40%;
   background-color: ${lightGrey};
   border-radius: 10px;
-  margin: 10px;
   padding: 10px;
-  min-height: 100vh;
+  min-height: 100%;
   @media (max-width: 667px) {
     margin: 0px;
     border-radius: 0;
@@ -218,11 +203,6 @@ const NameInput = styled.input`
       font-size: 18px;
     }
   }
-`;
-
-const Header = styled.h1`
-  margin: 0 0 10px 0;
-  font-size: 25px;
 `;
 
 const SearchInputContainer = styled.div`

@@ -73,22 +73,26 @@ const Container = styled.section`
   font-size: 30px;
   width: 70px;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background-color: ${accent};
   @media (max-width: 667px) {
+    position: fixed;
     flex-direction: row;
     width: 100%;
     min-height: 60px;
     height: 60px;
     font-size: 20px;
     justify-content: space-evenly;
+    bottom: 0;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
+    position: fixed;
     flex-direction: row;
     width: 100%;
     min-height: 60px;
     font-size: 20px;
     height: 60px;
     justify-content: space-evenly;
+    bottom: 0;
   }
 `;

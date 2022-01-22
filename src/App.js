@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from '@reduxjs/toolkit';
 import { inbox } from 'reducers/inbox';
@@ -31,18 +30,8 @@ const store = createStore(reducer);
 
 export const App = () => {
   return (
-    <Page>
-      <Provider store={store}>
-        <Main />
-      </Provider>
-    </Page>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 };
-
-const Page = styled.section`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-`;

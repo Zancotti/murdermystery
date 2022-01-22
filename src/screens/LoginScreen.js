@@ -141,19 +141,11 @@ export const LoginScreen = () => {
   );
 };
 
-const ErrorContainer = styled.div`
-  background-color: #f4f6f8;
-  width: 100%;
-  padding 10px;
-`;
-
 const Main = styled.main`
-  height: 100vh;
-  min-height: 667px;
-  width: 100%;
+  height: 100%;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr auto;
-  background-color: black;
 `;
 
 const Image = styled.div`
@@ -167,8 +159,9 @@ const Image = styled.div`
 
 const RightColumn = styled.div`
   height: 100%;
+  min-height: 100vh;
   background-color: #00a48a;
-  @media (max-width: 420px) {
+  @media (max-width: 760px) {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -180,7 +173,7 @@ const Container = styled.div`
   grid-template-rows: auto auto auto auto;
   width: 375px;
   padding: 10px 10px 10px;
-  @media (max-width: 420px) {
+  @media (max-width: 760px) {
     width: 100%;
   }
 `;
@@ -231,4 +224,10 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   column-gap: 5px;
+`;
+
+const ErrorContainer = styled.div`
+  background-color: #f4f6f8;
+  width: 100%;
+  padding 10px;
 `;

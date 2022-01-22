@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import { FindSearchItem } from './FindSearchItem';
 import { useDispatch } from 'react-redux';
 import { persons } from 'reducers/persons';
@@ -7,7 +6,7 @@ import { persons } from 'reducers/persons';
 export const AccessedPersonsList = ({ accessedPersonList, selectedPerson }) => {
   const dispatch = useDispatch();
   return (
-    <Container>
+    <div>
       <h2>Accessed Persons</h2>
       {accessedPersonList.map(person => {
         return (
@@ -25,15 +24,6 @@ export const AccessedPersonsList = ({ accessedPersonList, selectedPerson }) => {
           />
         );
       })}
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  @media (max-width: 667px) {
-    padding-bottom: 30px;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    padding-bottom: 30px;
-  }
-`;

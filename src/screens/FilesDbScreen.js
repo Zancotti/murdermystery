@@ -12,18 +12,19 @@ import { FileDetails } from 'components/FileDetails';
 import { lightGrey, white } from 'styles/colors';
 import { SearchButton } from 'components/SearchButton';
 import { API_URL } from 'utils/urls';
+import { Container } from 'styles/Container';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const fileList = useSelector(state => state.files.fileList);
-  const [searchString, setSearchString] = useState('');
-  const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const fileList = useSelector(state => state.files.fileList);
   const accessedFileList = useSelector(state => state.files.accessedFileList);
   const fileSearchResult = useSelector(state => state.files.fileSearchResult);
   const selectedFile = useSelector(state => state.files.selectedFile);
   const loggedInUser = useSelector(state => state.user.user);
+  const [searchString, setSearchString] = useState('');
+  const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   console.log('fileSearchResult', fileSearchResult);
 
@@ -78,7 +79,7 @@ export const FilesDbScreen = () => {
     <Container>
       {(!selectedFile || !isTabletOrMobile) && (
         <SearchContainer>
-          <Header>File Database</Header>
+          <h1>File Database</h1>
           <SearchInputContainer>
             <IconContainer>
               <FontAwesomeIcon icon={faSearch} />
@@ -134,18 +135,6 @@ export const FilesDbScreen = () => {
   );
 };
 
-const Container = styled.section`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  @media (max-width: 667px) {
-    flex-direction: column;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    flex-direction: column;
-  }
-`;
-
 const SearchContainer = styled.div`
   box-sizing: border-box;
   display: grid;
@@ -153,13 +142,11 @@ const SearchContainer = styled.div`
   padding: 10px;
   width: 40%;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background-color: ${lightGrey};
   border-radius: 10px;
-  margin: 10px;
   @media (max-width: 667px) {
     width: 100%;
-    margin: 0;
     border-radius: 0;
     grid-template-rows: auto auto auto auto 1fr 20%;
     padding: 10px 10px 70px 10px;
@@ -167,7 +154,6 @@ const SearchContainer = styled.div`
   @media (min-width: 668px) and (max-width: 1024px) {
     grid-template-rows: auto auto auto auto 1fr 20%;
     width: 100%;
-    margin: 0;
     border-radius: 0;
     padding: 10px 10px 70px 10px;
   }
@@ -199,11 +185,6 @@ const NameInput = styled.input`
       font-size: 18px;
     }
   }
-`;
-
-const Header = styled.h1`
-  margin: 0 0 10px 0;
-  font-size: 25px;
 `;
 
 const SearchInputContainer = styled.div`

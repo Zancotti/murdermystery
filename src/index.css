@@ -8,15 +8,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  -moz-box-sizing: border-box;
+  scroll-behavior: smooth;
+  min-width: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+h1 {
+  margin: 0 0 10px 0;
+  font-size: 25px;
 }

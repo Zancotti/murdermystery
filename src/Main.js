@@ -10,44 +10,53 @@ import { FilesDbScreen } from 'screens/FilesDbScreen';
 import { TelephoneScreen } from 'screens/TelephoneScreen';
 import { FinalReportScreen } from 'screens/FinalReportScreen';
 import { OptionsScreen } from 'screens/OptionsScreen';
+import { useSelector } from 'react-redux';
 
 export const Main = () => {
-  const isAuthenticated = true;
-  // const isAuthenticated = useSelector(
-  //   store => store.user.user.accessToken != null,
-  // );
+  // const isAuthenticated = true;
+  const isAuthenticated = useSelector(
+    store => store.user.user.accessToken != null,
+  );
 
   return (
     <BrowserRouter>
-      {!isAuthenticated && (
-        <Routes>
-          <Route path="*" element={<LoginScreen />} />
-        </Routes>
-      )}
+      <Container>
+        {!isAuthenticated && (
+          <Routes>
+            <Route path="*" element={<LoginScreen />} />
+          </Routes>
+        )}
 
-      {isAuthenticated && (
-        <>
-          <Header />
-          <Content>
-            <MenuBarWrapper>
+        {isAuthenticated && (
+          <>
+            <Header />
+            <Content>
               <MenuBar />
-            </MenuBarWrapper>
-            <MainContainer>
-              <Routes>
-                <Route path="/mails" element={<InboxScreen />} />
-                <Route path="/persons" element={<PersonsDbScreen />} />
-                <Route path="/files" element={<FilesDbScreen />} />
-                <Route path="/finalreport" element={<FinalReportScreen />} />
-                <Route path="/options" element={<OptionsScreen />} />
-                <Route path="/telephone" element={<TelephoneScreen />} />
-              </Routes>
-            </MainContainer>
-          </Content>
-        </>
-      )}
+              <MainContainer>
+                <Routes>
+                  <Route path="/mails" element={<InboxScreen />} />
+                  <Route path="/persons" element={<PersonsDbScreen />} />
+                  <Route path="/files" element={<FilesDbScreen />} />
+                  <Route path="/finalreport" element={<FinalReportScreen />} />
+                  <Route path="/options" element={<OptionsScreen />} />
+                  <Route path="/telephone" element={<TelephoneScreen />} />
+                </Routes>
+              </MainContainer>
+            </Content>
+          </>
+        )}
+      </Container>
     </BrowserRouter>
   );
 };
+
+const Container = styled.section`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+`;
 
 const Content = styled.div`
   display: flex;
@@ -58,19 +67,6 @@ const Content = styled.div`
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     flex-direction: column;
-  }
-`;
-
-const MenuBarWrapper = styled.div`
-  @media (max-width: 667px) {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
   }
 `;
 

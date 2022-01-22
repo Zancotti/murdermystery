@@ -7,6 +7,7 @@ import { MailListItem } from 'components/MailListItem';
 import { API_URL } from 'utils/urls';
 import { useDispatch, useSelector } from 'react-redux';
 import { inbox } from 'reducers/inbox';
+import { Container } from 'styles/Container';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -32,7 +33,7 @@ export const InboxScreen = () => {
           dispatch(inbox.actions.setMailList({ mailList: data }));
         });
     }
-  }, [dispatch, loggedInUser.accessToken]);
+  }, [dispatch, loggedInUser.accessToken, mailList.length]);
 
   const filteredList = mailList.filter(mail =>
     triggeredEvents.includes(mail.event),
@@ -42,7 +43,7 @@ export const InboxScreen = () => {
     <Container>
       {(!selectedMail || !isTabletOrMobile) && (
         <MailList>
-          <Header>Inbox</Header>
+          <h1>Inbox</h1>
           {filteredList.map(mail => {
             return (
               <MailListItem
@@ -60,42 +61,23 @@ export const InboxScreen = () => {
   );
 };
 
-const Container = styled.section`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  min-height: 100vh;
-  @media (max-width: 667px) {
-    flex-direction: column;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    flex-direction: column;
-  }
-`;
-
-const Header = styled.h1`
-  margin: 0 0 10px 0;
-  font-size: 25px;
-`;
-
 const MailList = styled.div`
   width: 40%;
   background-color: ${lightGrey};
   border-radius: 10px;
-  margin: 10px;
   padding: 10px;
   @media (max-width: 667px) {
     width: 100%;
     height: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 10px 10px 70px 10px;
+    min-height: 100%;
+    padding: 10px 10px 60px 10px;
+    border-radius: 0;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 100%;
     height: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 10px 10px 70px 10px;
+    min-height: 100%;
+    padding: 10px 10px 60px 10px;
+    border-radius: 0;
   }
 `;
