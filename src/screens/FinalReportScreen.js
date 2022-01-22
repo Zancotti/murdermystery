@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { white, lightGrey } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
+import { Button } from 'components/Button';
 
 export const FinalReportScreen = () => {
   const [nameMurderer, setNameMurderer] = useState('');
@@ -76,7 +77,7 @@ export const FinalReportScreen = () => {
                 />
                 <span>will take over the familys company.</span>
               </FindingsSection>
-              <SubmitButton type="submit">Submit</SubmitButton>
+              <Button text="Submit" onClick={() => console.log('submit')} />
             </Form>
           )}
         </FinalReport>

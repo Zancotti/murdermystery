@@ -3,14 +3,14 @@ import styled from 'styled-components/macro';
 import { lightGrey, white } from 'styles/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, batch } from 'react-redux';
 import { persons } from 'reducers/persons';
 import { Loading } from '../components/Loading';
 import { useMediaQuery } from 'react-responsive';
 import { PersonDetails } from 'components/PersonDetails';
 import { AccessedPersonsList } from 'components/AccessedPersonList';
 import { FindSearchItem } from 'components/FindSearchItem';
-import { SubmitButton } from 'components/SubmitButton';
+import { SearchButton } from 'components/SearchButton';
 import { API_URL } from 'utils/urls';
 import { inbox } from 'reducers/inbox';
 
@@ -70,6 +70,13 @@ export const PersonsDbScreen = () => {
     if (searchString === '') {
       return;
     }
+
+    if (nameOnSubmit === searchString) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
+
     setIsLoading(true);
     setNameOnSubmit(searchString);
     setSearchString('');
@@ -91,7 +98,7 @@ export const PersonsDbScreen = () => {
                 value={searchString}
                 onChange={event => setSearchString(event.target.value)}
               ></NameInput>
-              <SubmitButton />
+              <SearchButton />
             </Form>
           </SearchInputContainer>
 
@@ -105,24 +112,25 @@ export const PersonsDbScreen = () => {
           {personSearchResult && !isLoading && (
             <FindSearchItem
               onClick={() => {
-                dispatch(
-                  persons.actions.setSelectedPerson({
-                    selectedPerson: personSearchResult,
-                  }),
-                );
-                dispatch(
-                  persons.actions.addAccessedPerson({
-                    person: personSearchResult,
-                  }),
-                );
-
-                if (personSearchResult.triggersEvent) {
+                batch(() => {
                   dispatch(
-                    inbox.actions.addTriggeredEvent({
-                      event: personSearchResult.triggersEvent,
+                    persons.actions.setSelectedPerson({
+                      selectedPerson: personSearchResult,
                     }),
                   );
-                }
+                  dispatch(
+                    persons.actions.addAccessedPerson({
+                      person: personSearchResult,
+                    }),
+                  );
+                  if (personSearchResult.triggersEvent) {
+                    dispatch(
+                      inbox.actions.addTriggeredEvent({
+                        event: personSearchResult.triggersEvent,
+                      }),
+                    );
+                  }
+                });
               }}
               item={personSearchResult}
               selectedItem={selectedPerson}

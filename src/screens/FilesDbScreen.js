@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { files } from 'reducers/files';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, batch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Loading } from 'components/Loading';
@@ -10,7 +10,7 @@ import { FindSearchItem } from 'components/FindSearchItem';
 import { AccessedFileList } from 'components/AccessedFileList';
 import { FileDetails } from 'components/FileDetails';
 import { lightGrey, white } from 'styles/colors';
-import { SubmitButton } from 'components/SubmitButton';
+import { SearchButton } from 'components/SearchButton';
 import { API_URL } from 'utils/urls';
 
 export const FilesDbScreen = () => {
@@ -65,6 +65,11 @@ export const FilesDbScreen = () => {
       return;
     }
     setIsLoading(true);
+    if (fileIdOnSubmit === searchString) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
     setFileIdOnSubmit(searchString);
     setSearchString('');
   };
@@ -85,7 +90,7 @@ export const FilesDbScreen = () => {
                 value={searchString}
                 onChange={event => setSearchString(event.target.value)}
               ></NameInput>
-              <SubmitButton />
+              <SearchButton />
             </Form>
           </SearchInputContainer>
 
@@ -101,14 +106,16 @@ export const FilesDbScreen = () => {
               item={fileSearchResult}
               selectedItem={selectedFile}
               onClick={() => {
-                dispatch(
-                  files.actions.setSelectedFile({
-                    selectedFile: fileSearchResult,
-                  }),
-                );
-                dispatch(
-                  files.actions.addAccessedFile({ file: fileSearchResult }),
-                );
+                batch(() => {
+                  dispatch(
+                    files.actions.setSelectedFile({
+                      selectedFile: fileSearchResult,
+                    }),
+                  );
+                  dispatch(
+                    files.actions.addAccessedFile({ file: fileSearchResult }),
+                  );
+                });
               }}
             />
           )}

@@ -4,7 +4,7 @@ import { white, accent } from 'styles/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-export const SubmitButton = () => {
+export const SearchButton = () => {
   return (
     <Submit>
       <FontAwesomeIcon icon={faSearch} />
