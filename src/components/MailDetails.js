@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { white, darkGrey } from 'styles/colors';
-import moment from 'moment';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
-import { inbox } from 'reducers/inbox';
-import { BackButton } from './BackButton';
 import ReactHtmlParser from 'react-html-parser';
-import { Base_URL } from 'utils/urls';
+import moment from 'moment';
+import { white, darkGrey } from 'styles/colors';
+import { inbox, BackButton, Base_URL } from './Article';
 
 export const MailDetails = () => {
   const selectedMail = useSelector(state => state.inbox.selectedMail);

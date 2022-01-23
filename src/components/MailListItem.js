@@ -1,12 +1,11 @@
 import React from 'react';
-import { inbox } from 'reducers/inbox';
+import styled from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components/macro';
 import { white, accent, darkGrey } from 'styles/colors';
 import moment from 'moment';
-import { Base_URL } from 'utils/urls';
+import { inbox, Base_URL } from './Article';
 
 const getTimeStamp = timeStamp => {
   const today = new Date();

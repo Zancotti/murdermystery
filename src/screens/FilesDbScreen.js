@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { files } from 'reducers/files';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Loading } from 'components/Loading';
-import { FindSearchItem } from 'components/FindSearchItem';
-import { AccessedFileList } from 'components/AccessedFileList';
-import { FileDetails } from 'components/FileDetails';
-import { lightGrey, white } from 'styles/colors';
-import { SearchButton } from 'components/SearchButton';
-import { API_URL } from 'utils/urls';
-import { Container } from 'styles/Container';
+import { lightGrey } from 'styles/colors';
+
+import { files, Loading, FindSearchItem } from '../components/Article';
+import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
+import { SearchInputContainer, Container } from '../components/Article';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -80,20 +74,11 @@ export const FilesDbScreen = () => {
       {(!selectedFile || !isTabletOrMobile) && (
         <SearchContainer>
           <h1>File Database</h1>
-          <SearchInputContainer>
-            <IconContainer>
-              <FontAwesomeIcon icon={faSearch} />
-            </IconContainer>
-            <Form onSubmit={handleSubmit}>
-              <NameInput
-                placeholder="Search"
-                type="text"
-                value={searchString}
-                onChange={event => setSearchString(event.target.value)}
-              ></NameInput>
-              <SearchButton />
-            </Form>
-          </SearchInputContainer>
+          <SearchInputContainer
+            handleSubmit={handleSubmit}
+            value={searchString}
+            onChange={event => setSearchString(event.target.value)}
+          />
 
           <MatchResult>
             {isLoading && <Loading />}
@@ -159,54 +144,7 @@ const SearchContainer = styled.div`
   }
 `;
 
-const NameInput = styled.input`
-  background-color: white;
-  width: 100%;
-  height: 56px;
-  border-radius: 4px;
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.3);
-  transition: 0.3s all;
-  outline: none;
-  border: none;
-  font-size: 20px;
-  &::placeholder {
-    font-size: 20px;
-  }
-  @media (max-width: 667px) {
-    font-size: 18px;
-    &::placeholder {
-      font-size: 18px;
-    }
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    font-size: 18px;
-    &::placeholder {
-      font-size: 18px;
-    }
-  }
-`;
-
-const SearchInputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  background: ${white};
-`;
-
-const IconContainer = styled.div`
-  font-size: 22px;
-  color: #7e7b7c;
-  margin: 0 10px;
-`;
-
 const MatchResult = styled.div`
   margin-top: 10px;
   color: #404040;
-`;
-
-const Form = styled.form`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
 `;

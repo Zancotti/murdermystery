@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { lightGrey } from 'styles/colors';
-import { MailDetails } from 'components/MailDetails';
-import { useMediaQuery } from 'react-responsive';
-import { MailListItem } from 'components/MailListItem';
-import { API_URL } from 'utils/urls';
 import { useDispatch, useSelector } from 'react-redux';
-import { inbox } from 'reducers/inbox';
-import { Container } from 'styles/Container';
+import { useMediaQuery } from 'react-responsive';
+import { lightGrey } from 'styles/colors';
+import { MailDetails, MailListItem, API_URL } from 'components/Article';
+import { inbox, Container } from 'components/Article';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -38,7 +35,6 @@ export const InboxScreen = () => {
   const filteredList = mailList.filter(mail =>
     triggeredEvents.includes(mail.event),
   );
-  console.log(triggeredEvents);
   return (
     <Container>
       {(!selectedMail || !isTabletOrMobile) && (

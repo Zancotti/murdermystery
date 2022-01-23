@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { accent } from 'styles/colors';
+import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookDead } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { accent } from 'styles/colors';
-import { useMediaQuery } from 'react-responsive';
 
 export const Header = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 667px)' });

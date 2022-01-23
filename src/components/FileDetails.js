@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { white } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
-import { files } from 'reducers/files';
 import ReactHtmlParser from 'react-html-parser';
-
-import { BackButton } from './BackButton';
+import { white } from 'styles/colors';
+import { files, BackButton } from './Article';
 
 export const FileDetails = ({ selectedFile }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import { white, black } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
+import { white, black } from 'styles/colors';
 
 export const MenuButton = ({
   title,

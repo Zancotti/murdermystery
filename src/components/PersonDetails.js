@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { white } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
-import { persons } from 'reducers/persons';
 import ReactHtmlParser from 'react-html-parser';
-import { Base_URL } from 'utils/urls';
+import { white } from 'styles/colors';
+import { persons, Base_URL } from './Article';
 
 import { BackButton } from './BackButton';
 export const PersonDetails = ({ selectedPerson }) => {

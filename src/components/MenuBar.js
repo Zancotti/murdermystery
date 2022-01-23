@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { accent } from 'styles/colors';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import {
   faFileSearch,
@@ -8,9 +10,7 @@ import {
   faFileSignature,
   faSlidersV,
 } from '@fortawesome/pro-solid-svg-icons';
-import { MenuButton } from './MenuButton';
-import { accent } from 'styles/colors';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { MenuButton } from './Article';
 
 export const MenuBar = () => {
   const navigate = useNavigate();

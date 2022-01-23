@@ -1,7 +1,6 @@
 import React from 'react';
-import { FindSearchItem } from './FindSearchItem';
 import { useDispatch } from 'react-redux';
-import { persons } from 'reducers/persons';
+import { FindSearchItem, persons } from './Article';
 
 export const AccessedPersonsList = ({ accessedPersonList, selectedPerson }) => {
   const dispatch = useDispatch();

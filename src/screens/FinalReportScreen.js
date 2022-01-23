@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import { white, lightGrey } from 'styles/colors';
+import { lightGrey } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
-import { Button } from 'components/Button';
-import { Container } from 'styles/Container';
+import { Button, Container, Input } from 'components/Article';
 
 export const FinalReportScreen = () => {
-  const [nameMurderer, setNameMurderer] = useState('');
-  const [nameVictim, setNameVictim] = useState('');
-  const [nameInheriter, setNameInheriter] = useState('');
+  const [reportDetails, setReportDetails] = useState({
+    murderer: '',
+    victim: '',
+    relationship: '',
+    inheriter: '',
+  });
+
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
-  const [value, setValue] = useState('');
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
-  console.log(isSubmitClicked);
   const formOnSubmit = event => {
     event.preventDefault();
     setIsSubmitClicked(true);
   };
-
-  console.log('istabletor mobile', isTabletOrMobile);
-  console.log(value);
-  console.log('is submit', isSubmitClicked);
 
   return (
     <Container>
@@ -31,28 +28,43 @@ export const FinalReportScreen = () => {
           {!isSubmitClicked && (
             <Form onSubmit={formOnSubmit}>
               <FindingsSection>
-                <TextInput
-                  placeholder="Name"
+                <Input
                   type="text"
-                  onChange={event => setNameMurderer(event.target.value)}
-                  value={nameMurderer}
-                  required
+                  placeholder="Name"
+                  onChange={event =>
+                    setReportDetails({
+                      ...reportDetails,
+                      murderer: event.target.value.toLowerCase(),
+                    })
+                  }
+                  value={reportDetails.murderer}
+                  required={true}
                 />
                 <span>killed</span>
-                <TextInput
+                <Input
                   type="text"
                   placeholder="Name"
-                  onChange={event => setNameVictim(event.target.value)}
-                  value={nameVictim}
-                  required
+                  onChange={event =>
+                    setReportDetails({
+                      ...reportDetails,
+                      victim: event.target.value.toLowerCase(),
+                    })
+                  }
+                  value={reportDetails.victim}
+                  required={true}
                 />
               </FindingsSection>
               <FindingsSection>
                 <span>The killer was the victims</span>
                 <Select
-                  defaultValue={''}
+                  defaultValue={reportDetails.relationship}
                   required
-                  onChange={event => setValue(event.currentTarget.value)}
+                  onChange={event =>
+                    setReportDetails({
+                      ...reportDetails,
+                      relationship: event.currentTarget.value,
+                    })
+                  }
                 >
                   <option value="" disabled>
                     Choose option
@@ -69,12 +81,17 @@ export const FinalReportScreen = () => {
                 </Select>
               </FindingsSection>
               <FindingsSection>
-                <TextInput
-                  placeholder="Name"
+                <Input
                   type="text"
-                  onChange={event => setNameInheriter(event.target.value)}
-                  value={nameInheriter}
-                  required
+                  placeholder="Name"
+                  onChange={event =>
+                    setReportDetails({
+                      ...reportDetails,
+                      inheriter: event.target.value,
+                    })
+                  }
+                  value={reportDetails.inheriter}
+                  required={true}
                 />
                 <span>will take over the familys company.</span>
               </FindingsSection>
@@ -126,15 +143,6 @@ const Select = styled.select`
   width: 120px;
   padding: 5px;
   border: none;
-`;
-
-const TextInput = styled.input`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  background-color: ${white};
-  width: 120px;
-  border: none;
-  outline: none;
-  padding: 5px;
 `;
 
 const Conclusion = styled.div`

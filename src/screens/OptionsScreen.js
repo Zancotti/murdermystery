@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { lightGrey } from 'styles/colors';
-import { Button } from 'components/Button';
-import { Container } from 'styles/Container';
+import { Button, Container } from 'components/Article';
 
 export const OptionsScreen = () => {
   return (

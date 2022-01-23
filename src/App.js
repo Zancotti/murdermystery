@@ -7,6 +7,7 @@ import { files } from 'reducers/files';
 import { user } from 'reducers/user';
 import { Main } from 'Main';
 import styled from 'styled-components';
+
 const reducer = combineReducers({
   inbox: inbox.reducer,
   persons: persons.reducer,
