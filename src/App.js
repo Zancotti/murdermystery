@@ -6,7 +6,7 @@ import { persons } from 'reducers/persons';
 import { files } from 'reducers/files';
 import { user } from 'reducers/user';
 import { Main } from 'Main';
-
+import styled from 'styled-components';
 const reducer = combineReducers({
   inbox: inbox.reducer,
   persons: persons.reducer,
@@ -30,8 +30,18 @@ const store = createStore(reducer);
 
 export const App = () => {
   return (
-    <Provider store={store}>
-      <Main />
-    </Provider>
+    <Container>
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    </Container>
   );
 };
+
+const Container = styled.section`
+  display: grid;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  min-width: 300px;
+`;

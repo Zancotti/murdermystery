@@ -10,52 +10,46 @@ import { FilesDbScreen } from 'screens/FilesDbScreen';
 import { TelephoneScreen } from 'screens/TelephoneScreen';
 import { FinalReportScreen } from 'screens/FinalReportScreen';
 import { OptionsScreen } from 'screens/OptionsScreen';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 export const Main = () => {
-  // const isAuthenticated = true;
-  const isAuthenticated = useSelector(
-    store => store.user.user.accessToken != null,
-  );
+  const isAuthenticated = true;
+  // const isAuthenticated = useSelector(
+  //   store => store.user.user.accessToken != null,
+  // );
 
   return (
     <BrowserRouter>
-      <Container>
-        {!isAuthenticated && (
-          <Routes>
-            <Route path="*" element={<LoginScreen />} />
-          </Routes>
-        )}
-
-        {isAuthenticated && (
-          <>
-            <Header />
-            <Content>
-              <MenuBar />
-              <MainContainer>
-                <Routes>
-                  <Route path="/mails" element={<InboxScreen />} />
-                  <Route path="/persons" element={<PersonsDbScreen />} />
-                  <Route path="/files" element={<FilesDbScreen />} />
-                  <Route path="/finalreport" element={<FinalReportScreen />} />
-                  <Route path="/options" element={<OptionsScreen />} />
-                  <Route path="/telephone" element={<TelephoneScreen />} />
-                </Routes>
-              </MainContainer>
-            </Content>
-          </>
-        )}
-      </Container>
+      {!isAuthenticated && (
+        <Routes>
+          <Route path="*" element={<LoginScreen />} />
+        </Routes>
+      )}
+      {isAuthenticated && (
+        <Container>
+          <Header />
+          <Content>
+            <MenuBar />
+            <MainContainer>
+              <Routes>
+                <Route path="/mails" element={<InboxScreen />} />
+                <Route path="/persons" element={<PersonsDbScreen />} />
+                <Route path="/files" element={<FilesDbScreen />} />
+                <Route path="/finalreport" element={<FinalReportScreen />} />
+                <Route path="/options" element={<OptionsScreen />} />
+                <Route path="/telephone" element={<TelephoneScreen />} />
+              </Routes>
+            </MainContainer>
+          </Content>
+        </Container>
+      )}
     </BrowserRouter>
   );
 };
 
-const Container = styled.section`
-  display: grid;
-  grid-template-rows: auto 1fr;
-  height: 100%;
-  min-height: 100vh;
-  width: 100%;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Content = styled.div`
