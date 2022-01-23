@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
-import { files, Loading, FindSearchItem } from '../components/Article';
+import { files, FindSearchItem } from '../components/Article';
 import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
 import { SearchInputContainer, Container } from '../components/Article';
 
@@ -78,8 +78,8 @@ export const FilesDbScreen = () => {
             value={searchString}
             onChange={event => setSearchString(event.target.value)}
             isLoading={isLoading}
-            fileIdOnSubmit={fileIdOnSubmit}
-            fileSearchResult={fileSearchResult}
+            hasSubmitted={Boolean(fileIdOnSubmit)}
+            hasFoundMatch={Boolean(fileSearchResult)}
           />
 
           {fileSearchResult && !isLoading && (
@@ -137,9 +137,4 @@ const SearchContainer = styled.div`
     border-radius: 0;
     padding: 10px 10px 70px 10px;
   }
-`;
-
-const MatchResult = styled.div`
-  margin-top: 10px;
-  color: #404040;
 `;

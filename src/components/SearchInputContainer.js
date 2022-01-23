@@ -10,8 +10,8 @@ export const SearchInputContainer = ({
   onChange,
   handleSubmit,
   isLoading,
-  fileIdOnSubmit,
-  fileSearchResult,
+  hasFoundMatch,
+  hasSubmitted,
 }) => {
   return (
     <>
@@ -31,8 +31,8 @@ export const SearchInputContainer = ({
       </InputContainer>
       <MatchResult>
         {isLoading && <Loading />}
-        {fileIdOnSubmit && !isLoading && (
-          <>{fileSearchResult ? 'We found a match' : 'No match found'}</>
+        {hasSubmitted && !isLoading && (
+          <>{hasFoundMatch ? 'We found a match' : 'No match found'}</>
         )}
       </MatchResult>
     </>
@@ -84,4 +84,9 @@ const Input = styled.input`
       font-size: 18px;
     }
   }
+`;
+
+const MatchResult = styled.div`
+  margin-top: 10px;
+  color: #404040;
 `;

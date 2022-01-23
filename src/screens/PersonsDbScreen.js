@@ -3,7 +3,7 @@ import { useSelector, useDispatch, batch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
-import { persons, Loading, PersonDetails } from 'components/Article';
+import { persons, PersonDetails } from 'components/Article';
 import { FindSearchItem, AccessedPersonsList, inbox } from 'components/Article';
 import { API_URL, SearchInputContainer, Container } from 'components/Article';
 
@@ -85,8 +85,8 @@ export const PersonsDbScreen = () => {
             value={searchString}
             onChange={event => setSearchString(event.target.value)}
             isLoading={isLoading}
-            fileIdOnSubmit={fileIdOnSubmit}
-            fileSearchResult={fileSearchResult}
+            hasSubmitted={Boolean(nameOnSubmit)}
+            hasFoundMatch={Boolean(personSearchResult)}
           />
 
           {personSearchResult && !isLoading && (
@@ -154,9 +154,4 @@ const SearchContainer = styled.div`
     margin: 0px;
     border-radius: 0;
   }
-`;
-
-const MatchResult = styled.div`
-  margin-top: 10px;
-  color: #404040;
 `;
