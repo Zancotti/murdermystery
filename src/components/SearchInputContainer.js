@@ -2,25 +2,40 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { SearchButton } from './Article';
+import { SearchButton, Loading } from './Article';
 import { white } from 'styles/colors';
 
-export const SearchInputContainer = ({ value, onChange, handleSubmit }) => {
+export const SearchInputContainer = ({
+  value,
+  onChange,
+  handleSubmit,
+  isLoading,
+  fileIdOnSubmit,
+  fileSearchResult,
+}) => {
   return (
-    <InputContainer>
-      <IconContainer>
-        <FontAwesomeIcon icon={faSearch} />
-      </IconContainer>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          placeholder="Search"
-          type="text"
-          value={value}
-          onChange={onChange}
-        />
-        <SearchButton />
-      </Form>
-    </InputContainer>
+    <>
+      <InputContainer>
+        <IconContainer>
+          <FontAwesomeIcon icon={faSearch} />
+        </IconContainer>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="Search"
+            type="text"
+            value={value}
+            onChange={onChange}
+          />
+          <SearchButton />
+        </Form>
+      </InputContainer>
+      <MatchResult>
+        {isLoading && <Loading />}
+        {fileIdOnSubmit && !isLoading && (
+          <>{fileSearchResult ? 'We found a match' : 'No match found'}</>
+        )}
+      </MatchResult>
+    </>
   );
 };
 

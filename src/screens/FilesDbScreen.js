@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
-
 import { files, Loading, FindSearchItem } from '../components/Article';
 import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
 import { SearchInputContainer, Container } from '../components/Article';
@@ -78,14 +77,10 @@ export const FilesDbScreen = () => {
             handleSubmit={handleSubmit}
             value={searchString}
             onChange={event => setSearchString(event.target.value)}
+            isLoading={isLoading}
+            fileIdOnSubmit={fileIdOnSubmit}
+            fileSearchResult={fileSearchResult}
           />
-
-          <MatchResult>
-            {isLoading && <Loading />}
-            {fileIdOnSubmit && !isLoading && (
-              <>{fileSearchResult ? 'We found a match' : 'No match found'}</>
-            )}
-          </MatchResult>
 
           {fileSearchResult && !isLoading && (
             <FindSearchItem

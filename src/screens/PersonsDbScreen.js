@@ -84,13 +84,10 @@ export const PersonsDbScreen = () => {
             handleSubmit={handleSubmit}
             value={searchString}
             onChange={event => setSearchString(event.target.value)}
+            isLoading={isLoading}
+            fileIdOnSubmit={fileIdOnSubmit}
+            fileSearchResult={fileSearchResult}
           />
-          <MatchResult>
-            {isLoading && <Loading />}
-            {nameOnSubmit && !isLoading && (
-              <>{personSearchResult ? 'We found a match' : 'No match found'}</>
-            )}
-          </MatchResult>
 
           {personSearchResult && !isLoading && (
             <FindSearchItem
