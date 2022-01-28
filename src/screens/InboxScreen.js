@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
 import { MailDetails, MailListItem, API_URL } from 'components/Article';
-import { inbox, Container } from 'components/Article';
+import { inbox, Container, useSafeDispatch } from 'components/Article';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -12,7 +12,8 @@ export const InboxScreen = () => {
   const triggeredEvents = useSelector(state => state.inbox.triggeredEvents);
   const loggedInUser = useSelector(state => state.user.user);
   const mailList = useSelector(state => state.inbox.mailList);
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
 
   useEffect(() => {
     if (mailList.length === 0) {

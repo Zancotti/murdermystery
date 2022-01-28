@@ -108,7 +108,7 @@ export const FinalReportScreen = () => {
 };
 
 const FinalReport = styled.div`
-  width: 40%;
+  width: 50%;
   background-color: ${lightGrey};
   border-radius: 10px;
   padding: 10px;

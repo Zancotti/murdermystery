@@ -3,7 +3,7 @@ import { useSelector, useDispatch, batch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
-import { persons, PersonDetails } from 'components/Article';
+import { persons, PersonDetails, useSafeDispatch } from 'components/Article';
 import { FindSearchItem, AccessedPersonsList, inbox } from 'components/Article';
 import { API_URL, SearchInputContainer, Container } from 'components/Article';
 
@@ -12,7 +12,9 @@ export const PersonsDbScreen = () => {
   const [searchString, setSearchString] = useState('');
   const [nameOnSubmit, setNameOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
+  const safeSetIsLoading = useSafeDispatch(setIsLoading);
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
   const personList = useSelector(state => state.persons.personList);
   const accessedPersonList = useSelector(
     state => state.persons.accessedPersonList,
@@ -42,8 +44,9 @@ export const PersonsDbScreen = () => {
   useEffect(() => {
     if (!nameOnSubmit) {
       setTimeout(() => {
-        setIsLoading(false);
+        safeSetIsLoading(false);
       }, 2000);
+
       return;
     }
 
@@ -53,10 +56,17 @@ export const PersonsDbScreen = () => {
         nameOnSubmit.toLowerCase(),
     );
     dispatch(persons.actions.setPersonSearchResult({ person }));
+
     setTimeout(() => {
-      setIsLoading(false);
+      safeSetIsLoading(false);
     }, 2000);
-  }, [nameOnSubmit, accessedPersonList, personList, dispatch]);
+  }, [
+    nameOnSubmit,
+    accessedPersonList,
+    personList,
+    dispatch,
+    safeSetIsLoading,
+  ]);
 
   const handleSubmit = event => {
     event.preventDefault();

@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { FindSearchItem, persons } from './Article';
+import { FindSearchItem, persons, useSafeDispatch } from './Article';
 
 export const AccessedPersonsList = ({ accessedPersonList, selectedPerson }) => {
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
   return (
     <div>
       <h2>Accessed Persons</h2>

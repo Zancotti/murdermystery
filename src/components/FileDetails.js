@@ -4,11 +4,13 @@ import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import { white } from 'styles/colors';
-import { files, BackButton } from './Article';
+import { files, BackButton, useSafeDispatch } from './Article';
 
 export const FileDetails = ({ selectedFile }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
+
   return (
     <Container>
       {isTabletOrMobile && (

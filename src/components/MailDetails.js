@@ -5,12 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { white, darkGrey } from 'styles/colors';
-import { inbox, BackButton, Base_URL } from './Article';
+import { inbox, BackButton, Base_URL, useSafeDispatch } from './Article';
 
 export const MailDetails = () => {
   const selectedMail = useSelector(state => state.inbox.selectedMail);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
 
   return (
     <MailDetailContainer>

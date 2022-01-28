@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import backgroundImage from '../Images/police.jpg';
-import { API_URL, user, Button, Input, Logotype } from 'components/Article';
+import { API_URL, user, Button, Input } from 'components/Article';
+import { Logotype, useSafeDispatch } from 'components/Article';
 
 const getOption = (email, password) => {
   return {
@@ -22,7 +23,8 @@ const getOption = (email, password) => {
 
 export const LoginScreen = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 420px)' });
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
   const navigate = useNavigate();
   const [loginDetails, setLoginDetails] = useState({ email: '', password: '' });
   const [actionType, setActionType] = useState('');

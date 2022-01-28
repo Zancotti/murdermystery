@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
-import { FindSearchItem, files } from './Article';
+import { FindSearchItem, files, useSafeDispatch } from './Article';
 
 export const AccessedFileList = ({ accessedFileList, selectedFile }) => {
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
 
   return (
     <Container>

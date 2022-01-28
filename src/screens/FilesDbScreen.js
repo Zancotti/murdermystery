@@ -3,13 +3,14 @@ import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
-import { files, FindSearchItem } from '../components/Article';
+import { files, FindSearchItem, useSafeDispatch } from '../components/Article';
 import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
 import { SearchInputContainer, Container } from '../components/Article';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
   const fileList = useSelector(state => state.files.fileList);
   const accessedFileList = useSelector(state => state.files.accessedFileList);
   const fileSearchResult = useSelector(state => state.files.fileSearchResult);
@@ -18,6 +19,7 @@ export const FilesDbScreen = () => {
   const [searchString, setSearchString] = useState('');
   const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const safeSetIsLoading = useSafeDispatch(setIsLoading);
 
   console.log('fileSearchResult', fileSearchResult);
 
@@ -40,7 +42,7 @@ export const FilesDbScreen = () => {
   useEffect(() => {
     if (!fileIdOnSubmit) {
       setTimeout(() => {
-        setIsLoading(false);
+        safeSetIsLoading(false);
       }, 2000);
       return;
     }
@@ -49,9 +51,9 @@ export const FilesDbScreen = () => {
     );
     dispatch(files.actions.setFileSearchResult({ file }));
     setTimeout(() => {
-      setIsLoading(false);
+      safeSetIsLoading(false);
     }, 2000);
-  }, [fileIdOnSubmit, accessedFileList, fileList, dispatch]);
+  }, [fileIdOnSubmit, accessedFileList, fileList, dispatch, safeSetIsLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -61,7 +63,7 @@ export const FilesDbScreen = () => {
     setIsLoading(true);
     if (fileIdOnSubmit === searchString) {
       setTimeout(() => {
-        setIsLoading(false);
+        safeSetIsLoading(false);
       }, 2000);
     }
     setFileIdOnSubmit(searchString);

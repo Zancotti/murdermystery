@@ -28,6 +28,7 @@ import { large, medium, small } from 'styles/media-queries';
 import { Base_URL, API_URL } from 'utils/urls';
 import { MenuButton } from './MenuButton';
 import { SearchInputContainer } from './SearchInputContainer';
+import { useSafeDispatch } from 'hooks/useSafeDispatch';
 
 export {
   small,
@@ -63,4 +64,5 @@ export {
   API_URL,
   MenuButton,
   SearchInputContainer,
+  useSafeDispatch,
 };

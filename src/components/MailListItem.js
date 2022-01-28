@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { white, accent, darkGrey } from 'styles/colors';
 import moment from 'moment';
-import { inbox, Base_URL } from './Article';
+import { inbox, Base_URL, useSafeDispatch } from './Article';
 
 const getTimeStamp = timeStamp => {
   const today = new Date();
@@ -18,7 +18,8 @@ const getTimeStamp = timeStamp => {
 };
 
 export const MailListItem = ({ mail, selectedMail, isTabletOrMobile }) => {
-  const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
   return (
     <MailListItemContainer
       key={mail._id}
