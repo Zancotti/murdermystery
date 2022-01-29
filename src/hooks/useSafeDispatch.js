@@ -1,6 +1,8 @@
 import { useRef, useCallback, useLayoutEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-export const useSafeDispatch = unsafeDispatch => {
+export const useSafeDispatch = () => {
+  const unsafeDispatch = useDispatch();
   const mountedRef = useRef(false);
   useLayoutEffect(() => {
     mountedRef.current = true;

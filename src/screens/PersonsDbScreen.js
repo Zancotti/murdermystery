@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { useSelector, batch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
@@ -7,15 +7,14 @@ import { persons, PersonDetails, useSafeDispatch } from 'components/Article';
 import { FindSearchItem, AccessedPersonsList, inbox } from 'components/Article';
 import { API_URL, SearchInputContainer, Container } from 'components/Article';
 import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
+import { useSafeSet } from 'hooks/useSafeSet';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const [searchString, setSearchString] = useState('');
   const [nameOnSubmit, setNameOnSubmit] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const safeSetIsLoading = useSafeDispatch(setIsLoading);
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
+  const [isLoading, setIsLoading] = useSafeSet(false);
+  const dispatch = useSafeDispatch();
   const personList = useSelector(state => state.persons.personList);
   const accessedPersonList = useSelector(
     state => state.persons.accessedPersonList,
@@ -38,7 +37,7 @@ export const PersonsDbScreen = () => {
   useEffect(() => {
     if (!nameOnSubmit) {
       setTimeout(() => {
-        safeSetIsLoading(false);
+        setIsLoading(false);
       }, 2000);
 
       return;
@@ -52,15 +51,9 @@ export const PersonsDbScreen = () => {
     dispatch(persons.actions.setPersonSearchResult({ person }));
 
     setTimeout(() => {
-      safeSetIsLoading(false);
+      setIsLoading(false);
     }, 2000);
-  }, [
-    nameOnSubmit,
-    accessedPersonList,
-    personList,
-    dispatch,
-    safeSetIsLoading,
-  ]);
+  }, [nameOnSubmit, accessedPersonList, personList, dispatch, setIsLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();

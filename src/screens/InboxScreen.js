@@ -11,7 +11,6 @@ export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const selectedMail = useSelector(state => state.inbox.selectedMail);
   const triggeredEvents = useSelector(state => state.inbox.triggeredEvents);
-
   const mailListDispatch = useCallback(
     data => inbox.actions.setMailList({ mailList: data }),
     [],
@@ -23,14 +22,9 @@ export const InboxScreen = () => {
     mailListDispatch,
   );
 
-  // if (mailInfo.status === 'resolved' && mailList && mailList.length === 0) {
-  //   console.log('Setting maillist');
-  //   dispatch(inbox.actions.setMailList({ mailList: mailInfo.data }));
-  // }
-
-  const filteredList = mailList
-    ? mailList.filter(mail => triggeredEvents.includes(mail.event))
-    : [];
+  const filteredList = mailList.filter(mail =>
+    triggeredEvents.includes(mail.event),
+  );
   return (
     <Container>
       {(!selectedMail || !isTabletOrMobile) && (

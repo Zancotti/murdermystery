@@ -13,7 +13,6 @@ export const inbox = createSlice({
     setMailList: (state, action) => {
       const { mailList } = action.payload;
       state.mailList = mailList;
-      console.log('hej', mailList);
     },
 
     setSelectedMail: (state, action) => {

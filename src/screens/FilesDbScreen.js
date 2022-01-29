@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { useSelector, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
 import { files, FindSearchItem, useSafeDispatch } from '../components/Article';
 import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
 import { SearchInputContainer, Container } from '../components/Article';
 import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
+import { useSafeSet } from 'hooks/useSafeSet';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
+  const dispatch = useSafeDispatch();
   const fileList = useSelector(state => state.files.fileList);
   const accessedFileList = useSelector(state => state.files.accessedFileList);
   const fileSearchResult = useSelector(state => state.files.fileSearchResult);
   const selectedFile = useSelector(state => state.files.selectedFile);
   const [searchString, setSearchString] = useState('');
   const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const safeSetIsLoading = useSafeDispatch(setIsLoading);
+  const [isLoading, setIsLoading] = useSafeSet(false);
   const fileListDispatch = useCallback(
     data => files.actions.setFileList({ fileList: data }),
     [],
@@ -36,7 +35,7 @@ export const FilesDbScreen = () => {
   useEffect(() => {
     if (!fileIdOnSubmit) {
       setTimeout(() => {
-        safeSetIsLoading(false);
+        setIsLoading(false);
       }, 2000);
       return;
     }
@@ -45,9 +44,9 @@ export const FilesDbScreen = () => {
     );
     dispatch(files.actions.setFileSearchResult({ file }));
     setTimeout(() => {
-      safeSetIsLoading(false);
+      setIsLoading(false);
     }, 2000);
-  }, [fileIdOnSubmit, accessedFileList, fileList, dispatch, safeSetIsLoading]);
+  }, [fileIdOnSubmit, accessedFileList, fileList, dispatch, setIsLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -57,7 +56,7 @@ export const FilesDbScreen = () => {
     setIsLoading(true);
     if (fileIdOnSubmit === searchString) {
       setTimeout(() => {
-        safeSetIsLoading(false);
+        setIsLoading(false);
       }, 2000);
     }
     setFileIdOnSubmit(searchString);

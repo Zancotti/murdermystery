@@ -17,9 +17,10 @@ export const useAuthenticatedFetch = (url, getSelector, action) => {
         },
       })
       .then(res => {
+        if (dataList && dataList.length > 0) return;
         dispatch(action(res.data));
       });
-  }, [url, dispatch, accessToken, action]);
+  }, [url, dispatch, accessToken, action, dataList]);
 
   return dataList;
 };
