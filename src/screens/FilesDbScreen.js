@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch, batch } from 'react-redux';
@@ -6,6 +6,7 @@ import { lightGrey } from 'styles/colors';
 import { files, FindSearchItem, useSafeDispatch } from '../components/Article';
 import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
 import { SearchInputContainer, Container } from '../components/Article';
+import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -15,29 +16,22 @@ export const FilesDbScreen = () => {
   const accessedFileList = useSelector(state => state.files.accessedFileList);
   const fileSearchResult = useSelector(state => state.files.fileSearchResult);
   const selectedFile = useSelector(state => state.files.selectedFile);
-  const loggedInUser = useSelector(state => state.user.user);
   const [searchString, setSearchString] = useState('');
   const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const safeSetIsLoading = useSafeDispatch(setIsLoading);
+  const fileListDispatch = useCallback(
+    data => files.actions.setFileList({ fileList: data }),
+    [],
+  );
+
+  useAuthenticatedFetch(
+    API_URL('files'),
+    state => state.files.fileList,
+    fileListDispatch,
+  );
 
   console.log('fileSearchResult', fileSearchResult);
-
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: loggedInUser.accessToken,
-      },
-    };
-
-    fetch(API_URL('files'), options)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        dispatch(files.actions.setFileList({ fileList: data }));
-      });
-  }, [dispatch, loggedInUser.accessToken]);
 
   useEffect(() => {
     if (!fileIdOnSubmit) {

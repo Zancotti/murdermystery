@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
@@ -6,6 +6,7 @@ import { lightGrey } from 'styles/colors';
 import { persons, PersonDetails, useSafeDispatch } from 'components/Article';
 import { FindSearchItem, AccessedPersonsList, inbox } from 'components/Article';
 import { API_URL, SearchInputContainer, Container } from 'components/Article';
+import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -22,24 +23,17 @@ export const PersonsDbScreen = () => {
   const personSearchResult = useSelector(
     state => state.persons.personSearchResult,
   );
-
   const selectedPerson = useSelector(state => state.persons.selectedPerson);
-  const loggedInUser = useSelector(state => state.user.user);
+  const personListDispatch = useCallback(
+    data => persons.actions.setPersonList({ fileList: data }),
+    [],
+  );
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: loggedInUser.accessToken,
-      },
-    };
-
-    fetch(API_URL('persons'), options)
-      .then(res => res.json())
-      .then(data => {
-        dispatch(persons.actions.setPersonList({ personList: data }));
-      });
-  }, [dispatch, loggedInUser.accessToken]);
+  useAuthenticatedFetch(
+    API_URL('persons'),
+    state => state.persons.personList,
+    personListDispatch,
+  );
 
   useEffect(() => {
     if (!nameOnSubmit) {

@@ -12,11 +12,12 @@ export const MenuButton = ({
   displayAmountMessages = false,
 }) => {
   const triggeredEvents = useSelector(state => state.inbox.triggeredEvents);
-  const numberOfUnreadMessages = useSelector(
-    state =>
-      state.inbox.mailList.filter(
-        mail => mail.unread && triggeredEvents.includes(mail.event),
-      ).length,
+  const numberOfUnreadMessages = useSelector(state =>
+    state.inbox.mailList
+      ? state.inbox.mailList.filter(
+          mail => mail.unread && triggeredEvents.includes(mail.event),
+        ).length
+      : 0,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const [isHovered, setIsHovered] = useState(false);

@@ -1,41 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components/macro';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
 import { MailDetails, MailListItem, API_URL } from 'components/Article';
-import { inbox, Container, useSafeDispatch } from 'components/Article';
+import { inbox, Container } from 'components/Article';
+import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const selectedMail = useSelector(state => state.inbox.selectedMail);
   const triggeredEvents = useSelector(state => state.inbox.triggeredEvents);
-  const loggedInUser = useSelector(state => state.user.user);
-  const mailList = useSelector(state => state.inbox.mailList);
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
 
-  useEffect(() => {
-    if (mailList.length === 0) {
-      const options = {
-        method: 'GET',
-        headers: {
-          Authorization: loggedInUser.accessToken,
-        },
-      };
-
-      fetch(API_URL('mails'), options)
-        .then(res => res.json())
-        .then(data => {
-          console.log('api response', data);
-          dispatch(inbox.actions.setMailList({ mailList: data }));
-        });
-    }
-  }, [dispatch, loggedInUser.accessToken, mailList.length]);
-
-  const filteredList = mailList.filter(mail =>
-    triggeredEvents.includes(mail.event),
+  const mailListDispatch = useCallback(
+    data => inbox.actions.setMailList({ mailList: data }),
+    [],
   );
+
+  const mailList = useAuthenticatedFetch(
+    API_URL('mails'),
+    state => state.inbox.mailList,
+    mailListDispatch,
+  );
+
+  // if (mailInfo.status === 'resolved' && mailList && mailList.length === 0) {
+  //   console.log('Setting maillist');
+  //   dispatch(inbox.actions.setMailList({ mailList: mailInfo.data }));
+  // }
+
+  const filteredList = mailList
+    ? mailList.filter(mail => triggeredEvents.includes(mail.event))
+    : [];
   return (
     <Container>
       {(!selectedMail || !isTabletOrMobile) && (
