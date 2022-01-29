@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSafeDispatch } from 'components/Article';
+import { useSafeDispatch } from 'hooks';
 import axios from 'axios';
 
 export const useAuthenticatedFetch = (url, getSelector, action) => {
@@ -17,10 +17,13 @@ export const useAuthenticatedFetch = (url, getSelector, action) => {
         },
       })
       .then(res => {
+        console.log('res', res);
         if (dataList && dataList.length > 0) return;
         dispatch(action(res.data));
       });
   }, [url, dispatch, accessToken, action, dataList]);
+
+  console.log('datalist', dataList);
 
   return dataList;
 };

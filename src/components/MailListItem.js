@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { white, accent, darkGrey } from 'styles/colors';
 import moment from 'moment';
-import { inbox, Base_URL, useSafeDispatch } from './Article';
+import { inbox } from 'reducers';
+import { Base_URL } from 'utils/urls';
+import { useSafeDispatch } from 'hooks';
 
 const getTimeStamp = timeStamp => {
   const today = new Date();

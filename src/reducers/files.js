@@ -11,6 +11,8 @@ export const files = createSlice({
   name: 'files',
   initialState,
   reducers: {
+    reset: () => initialState,
+
     setFileList: (state, action) => {
       const { fileList } = action.payload;
       state.fileList = fileList;

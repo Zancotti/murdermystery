@@ -4,8 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import backgroundImage from '../Images/police.jpg';
-import { API_URL, user, Button, Input } from 'components/Article';
-import { Logotype, useSafeDispatch } from 'components/Article';
+import { Button, Input, Logotype } from 'components';
+import { useSafeDispatch } from 'hooks';
+import { API_URL } from 'utils/urls';
+import { user } from 'reducers';
 
 const getOption = (email, password) => {
   return {

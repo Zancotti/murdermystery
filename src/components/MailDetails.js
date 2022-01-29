@@ -5,7 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { white, darkGrey } from 'styles/colors';
-import { inbox, BackButton, Base_URL, useSafeDispatch } from './Article';
+import { inbox } from 'reducers';
+import { BackButton } from '.';
+import { Base_URL } from 'utils/urls';
+import { useSafeDispatch } from 'hooks';
 
 export const MailDetails = () => {
   const selectedMail = useSelector(state => state.inbox.selectedMail);

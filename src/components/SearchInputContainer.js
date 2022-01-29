@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { SearchButton, Loading } from './Article';
+import { SearchButton, Loading } from '.';
 import { white } from 'styles/colors';
 
 export const SearchInputContainer = ({

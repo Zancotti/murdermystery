@@ -1,23 +1,55 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import iphone from '../Images/iphone.png';
-import { lightGrey } from 'styles/colors';
+import { lightGrey, accent, white } from 'styles/colors';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { inbox } from 'reducers';
 
 export const TelephoneScreen = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const [passcodeGuess, setPasscodeGuess] = useState('');
+  const [guessedCorrect, setGuessedCorrect] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <Container>
-      <TelephoneForm>
+      <TelephoneForm
+        onSubmit={event => {
+          event.preventDefault();
+          if (passcodeGuess === '1987') {
+            setGuessedCorrect(true);
+            setPasscodeGuess('');
+            dispatch(
+              inbox.actions.addTriggeredEvent({
+                event: 'telephoneUnlocked',
+              }),
+            );
+            setTimeout(() => {
+              navigate('/mails');
+            }, 2000);
+          }
+        }}
+      >
         <Content>
-          <PasswordInput type="text" />
-          <Button>Enter Password</Button>
-          <ForgotPassword
+          <PasscodeInput
+            type="text"
+            onChange={event => setPasscodeGuess(event.target.value)}
+            value={passcodeGuess}
+            placeholder={guessedCorrect ? 'Access granted' : 'Input 4 digits'}
+            disabled={guessedCorrect}
+          />
+
+          <Button type="submit" disabled={guessedCorrect}>
+            Enter passcode
+          </Button>
+          <ForgotPasscode
             onClick={() => setIsClicked(isClicked ? false : true)}
           >
             Forgot my passcode
-          </ForgotPassword>
-          <div></div>
-          {isClicked && <Clue>This is a clue</Clue>}
+          </ForgotPasscode>
+          {isClicked && <Clue>The year I married Lizzie</Clue>}
         </Content>
       </TelephoneForm>
     </Container>
@@ -60,6 +92,7 @@ const TelephoneForm = styled.form`
   justify-content: center;
   align-items: center;
   row-gap: 20px;
+  text-align: center;
   @media (max-width: 667px) {
     margin-bottom: 60px;
   }
@@ -68,10 +101,11 @@ const TelephoneForm = styled.form`
   }
 `;
 
-const PasswordInput = styled.input`
+const PasscodeInput = styled.input`
   width: 100%;
   font-size: 12px;
   padding: 5px;
+
   @media (max-width: 667px) {
     font-size: 15px;
     padding: 10px;
@@ -102,13 +136,19 @@ const Button = styled.button`
   }
 `;
 
-const ForgotPassword = styled.div`
+const ForgotPasscode = styled.div`
   width: 100%;
-  text-align: left;
   font-size: 10px;
   cursor: pointer;
+  background-color: ${accent};
+  padding: 2px;
+  border-radius: 2px;
+  color: ${white};
 `;
 
-const Clue = styled.span`
-  font-size: 10px;
+const Clue = styled(ForgotPasscode)`
+  color: black;
+  cursor: none;
+  margin-top: 4px;
+  background-color: ${lightGrey};
 `;

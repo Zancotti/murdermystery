@@ -1,15 +1,28 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { lightGrey } from 'styles/colors';
-import { Button, Container } from 'components/Article';
+import { Button, Container } from 'components';
+import { files, persons, inbox } from 'reducers';
 
 export const OptionsScreen = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const restartGame = () => {
+    dispatch(files.actions.reset());
+    dispatch(persons.actions.reset());
+    dispatch(inbox.actions.reset());
+    navigate('/mails');
+  };
+
   return (
     <Container>
       <Content>
         <h1>Options</h1>
         <Button onClick={() => console.log('text')} text="Save" />
-        <Button onClick={() => console.log('text')} text="Restart" />
+        <Button onClick={() => restartGame()} text="Restart" />
       </Content>
     </Container>
   );

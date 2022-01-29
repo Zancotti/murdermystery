@@ -3,16 +3,17 @@ import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
-import { files, FindSearchItem, useSafeDispatch } from '../components/Article';
-import { AccessedFileList, FileDetails, API_URL } from '../components/Article';
-import { SearchInputContainer, Container } from '../components/Article';
-import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
-import { useSafeSet } from 'hooks/useSafeSet';
+import { files } from 'reducers';
+import { useSafeDispatch } from 'hooks';
+import { FindSearchItem, AccessedFileList } from 'components';
+import { FileDetails, SearchInputContainer } from 'components';
+import { Container } from 'components';
+import { API_URL } from 'utils/urls';
+import { useAuthenticatedFetch, useSafeSet } from 'hooks';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const dispatch = useSafeDispatch();
-  const fileList = useSelector(state => state.files.fileList);
   const accessedFileList = useSelector(state => state.files.accessedFileList);
   const fileSearchResult = useSelector(state => state.files.fileSearchResult);
   const selectedFile = useSelector(state => state.files.selectedFile);
@@ -24,7 +25,7 @@ export const FilesDbScreen = () => {
     [],
   );
 
-  useAuthenticatedFetch(
+  const fileList = useAuthenticatedFetch(
     API_URL('files'),
     state => state.files.fileList,
     fileListDispatch,

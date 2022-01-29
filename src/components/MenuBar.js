@@ -10,7 +10,7 @@ import {
   faFileSignature,
   faSlidersV,
 } from '@fortawesome/pro-solid-svg-icons';
-import { MenuButton } from './Article';
+import { MenuButton } from '.';
 
 export const MenuBar = () => {
   const navigate = useNavigate();

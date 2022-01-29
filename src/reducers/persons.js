@@ -11,6 +11,7 @@ export const persons = createSlice({
   name: 'persons',
   initialState,
   reducers: {
+    reset: () => initialState,
     setPersonList: (state, action) => {
       const { personList } = action.payload;
       state.personList = personList;
@@ -34,29 +35,3 @@ export const persons = createSlice({
     },
   },
 });
-// const personList = [
-//   {
-//     id: 1,
-//     firstName: 'Sabrina',
-//     lastName: 'Zancotti',
-//     age: 31,
-//   },
-//   {
-//     id: 2,
-//     firstName: 'Amadeus',
-//     lastName: 'Hein',
-//     age: 32,
-//   },
-//   {
-//     id: 3,
-//     firstName: 'Sara',
-//     lastName: 'Zancotti',
-//     age: 35,
-//   },
-//   {
-//     id: 4,
-//     firstName: 'Zekija',
-//     lastName: 'Zancotti',
-//     age: 61,
-//   },
-// ];

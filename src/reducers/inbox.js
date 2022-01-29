@@ -10,6 +10,8 @@ export const inbox = createSlice({
   name: 'inbox',
   initialState,
   reducers: {
+    reset: () => initialState,
+
     setMailList: (state, action) => {
       const { mailList } = action.payload;
       state.mailList = mailList;

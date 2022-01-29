@@ -4,7 +4,10 @@ import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import { white } from 'styles/colors';
-import { persons, Base_URL, useSafeDispatch, BackButton } from './Article';
+import { persons } from 'reducers';
+import { Base_URL } from 'utils/urls';
+import { useSafeDispatch } from 'hooks';
+import { BackButton } from '.';
 
 export const PersonDetails = ({ selectedPerson }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });

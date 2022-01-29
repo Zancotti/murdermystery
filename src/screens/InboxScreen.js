@@ -3,9 +3,10 @@ import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
-import { MailDetails, MailListItem, API_URL } from 'components/Article';
-import { inbox, Container } from 'components/Article';
-import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
+import { MailDetails, MailListItem, Container } from 'components';
+import { API_URL } from 'utils/urls';
+import { inbox } from 'reducers';
+import { useAuthenticatedFetch } from 'hooks';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { lightGrey } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
-import { Button, Container, Input } from 'components/Article';
+import { Button, Container, Input } from 'components';
 
 export const FinalReportScreen = () => {
   const [reportDetails, setReportDetails] = useState({

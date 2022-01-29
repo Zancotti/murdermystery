@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { FindSearchItem, persons, useSafeDispatch } from './Article';
+import { persons } from 'reducers';
+import { FindSearchItem } from '.';
+import { useSafeDispatch } from 'hooks';
 
 export const AccessedPersonsList = ({ accessedPersonList, selectedPerson }) => {
   const unsafeDispatch = useDispatch();

@@ -3,11 +3,13 @@ import { useSelector, batch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
-import { persons, PersonDetails, useSafeDispatch } from 'components/Article';
-import { FindSearchItem, AccessedPersonsList, inbox } from 'components/Article';
-import { API_URL, SearchInputContainer, Container } from 'components/Article';
-import { useAuthenticatedFetch } from 'hooks/useAuthenticatedFetch';
-import { useSafeSet } from 'hooks/useSafeSet';
+import { persons, inbox } from 'reducers';
+import { PersonDetails, FindSearchItem } from 'components';
+import { Container, AccessedPersonsList } from 'components';
+import { SearchInputContainer } from 'components';
+import { API_URL } from 'utils/urls';
+import { useSafeSet, useSafeDispatch } from 'hooks';
+import { useAuthenticatedFetch } from 'hooks';
 
 export const PersonsDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -15,7 +17,6 @@ export const PersonsDbScreen = () => {
   const [nameOnSubmit, setNameOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useSafeSet(false);
   const dispatch = useSafeDispatch();
-  const personList = useSelector(state => state.persons.personList);
   const accessedPersonList = useSelector(
     state => state.persons.accessedPersonList,
   );
@@ -24,11 +25,11 @@ export const PersonsDbScreen = () => {
   );
   const selectedPerson = useSelector(state => state.persons.selectedPerson);
   const personListDispatch = useCallback(
-    data => persons.actions.setPersonList({ fileList: data }),
+    data => persons.actions.setPersonList({ personList: data }),
     [],
   );
 
-  useAuthenticatedFetch(
+  const personList = useAuthenticatedFetch(
     API_URL('persons'),
     state => state.persons.personList,
     personListDispatch,
