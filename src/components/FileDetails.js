@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import { white } from 'styles/colors';
 import { files } from 'reducers';
-import { BackButton } from '.';
+import { BackButton } from 'styledComponents';
 import { useSafeDispatch } from 'hooks';
 
 export const FileDetails = ({ selectedFile }) => {

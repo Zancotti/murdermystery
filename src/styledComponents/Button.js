@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styledComponents';
 
 export const Button = ({ text, onClick }) => {
   return <Btn onClick={onClick}>{text}</Btn>;

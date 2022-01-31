@@ -7,7 +7,7 @@ import { white } from 'styles/colors';
 import { persons } from 'reducers';
 import { Base_URL } from 'utils/urls';
 import { useSafeDispatch } from 'hooks';
-import { BackButton } from '.';
+import { BackButton } from 'styledComponents';
 
 export const PersonDetails = ({ selectedPerson }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });

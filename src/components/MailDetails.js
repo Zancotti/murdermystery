@@ -6,7 +6,7 @@ import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { white, darkGrey } from 'styles/colors';
 import { inbox } from 'reducers';
-import { BackButton } from '.';
+import { BackButton } from 'styledComponents';
 import { Base_URL } from 'utils/urls';
 import { useSafeDispatch } from 'hooks';
 

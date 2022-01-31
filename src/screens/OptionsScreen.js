@@ -3,7 +3,8 @@ import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { lightGrey } from 'styles/colors';
-import { Button, Container } from 'components';
+import { Container } from 'components';
+import { Button } from 'styledComponents';
 import { files, persons, inbox } from 'reducers';
 
 export const OptionsScreen = () => {

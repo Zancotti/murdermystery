@@ -10,13 +10,13 @@ import { FilesDbScreen } from 'screens/FilesDbScreen';
 import { TelephoneScreen } from 'screens/TelephoneScreen';
 import { FinalReportScreen } from 'screens/FinalReportScreen';
 import { OptionsScreen } from 'screens/OptionsScreen';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const Main = () => {
-  const isAuthenticated = true;
-  // const isAuthenticated = useSelector(
-  //   store => store.user.user.accessToken != null,
-  // );
+  // const isAuthenticated = true;
+  const isAuthenticated = useSelector(
+    store => store.user.user.accessToken != null,
+  );
 
   return (
     <BrowserRouter>
