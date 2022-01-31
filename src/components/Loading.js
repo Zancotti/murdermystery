@@ -27,7 +27,7 @@ export const Loading = () => {
         />
       )}
       {!isMobile && (
-        <Lottie options={defaultOptions} height={400} width={400} />
+        <Lottie options={defaultOptions} height={300} width={300} />
       )}
     </>
   );

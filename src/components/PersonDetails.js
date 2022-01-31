@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { useMediaQuery } from 'react-responsive';
-import { useDispatch } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
+import { useMediaQuery } from 'react-responsive';
 import { white } from 'styles/colors';
 import { persons } from 'reducers';
 import { Base_URL } from 'utils/urls';
@@ -11,9 +10,8 @@ import { BackButton } from 'styledComponents';
 
 export const PersonDetails = ({ selectedPerson }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
-  console.log(selectedPerson);
+  const dispatch = useSafeDispatch();
+
   return (
     <PersonDetailsContainer>
       {isTabletOrMobile && (

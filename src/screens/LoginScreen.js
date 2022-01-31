@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import backgroundImage from '../Images/police.jpg';
 import { Button, Input } from 'styledComponents';
-import { Logotype } from 'components';
+import { LoginHeader } from 'components';
 import { useSafeDispatch } from 'hooks';
 import { API_URL } from 'utils/urls';
 import { user } from 'reducers';
@@ -26,8 +25,7 @@ const getOption = (email, password) => {
 
 export const LoginScreen = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 420px)' });
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
+  const dispatch = useSafeDispatch();
   const navigate = useNavigate();
   const [loginDetails, setLoginDetails] = useState({ email: '', password: '' });
   const [actionType, setActionType] = useState('');
@@ -83,7 +81,7 @@ export const LoginScreen = () => {
       {!isMobile && <Image></Image>}
       <RightColumn>
         <Container>
-          <Logotype />
+          <LoginHeader />
           <LoginForm onSubmit={handleSubmitForm}>
             <Input
               required={true}
@@ -114,6 +112,7 @@ export const LoginScreen = () => {
             </ButtonContainer>
           </LoginForm>
           <Button text="Log in as guest" onClick={onGuestButtonClick} />
+          {error && <ErrorContainer>{error}</ErrorContainer>}
         </Container>
       </RightColumn>
     </Main>
@@ -167,4 +166,10 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   column-gap: 5px;
+`;
+
+const ErrorContainer = styled.div`
+  background-color: #f4f6f8;
+  width: 100%;
+  padding 10px;
 `;

@@ -8,6 +8,7 @@ export const Input = ({
   required,
   minLength,
   value,
+  disabled,
 }) => {
   return (
     <InputType
@@ -17,6 +18,7 @@ export const Input = ({
       type={type}
       minLength={minLength}
       value={value}
+      disabled={disabled}
     ></InputType>
   );
 };
@@ -24,4 +26,5 @@ export const Input = ({
 const InputType = styled.input`
   margin: 10px 0px;
   padding: 5px;
+  width: 100%;
 `;

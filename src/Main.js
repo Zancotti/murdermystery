@@ -8,10 +8,10 @@ import { FilesDbScreen, TelephoneScreen, FinalReportScreen } from 'screens';
 import { OptionsScreen, ErrorScreen } from 'screens';
 
 export const Main = () => {
-  const isAuthenticated = true;
-  // const isAuthenticated = useSelector(
-  //   store => store.user.user.accessToken != null,
-  // );
+  // const isAuthenticated = true;
+  const isAuthenticated = useSelector(
+    store => store.user.user.accessToken != null,
+  );
 
   return (
     <BrowserRouter>

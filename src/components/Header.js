@@ -3,20 +3,14 @@ import styled from 'styled-components/macro';
 import { accent } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookDead } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { Logo } from 'components';
 
 export const Header = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 667px)' });
   return (
     <Container>
-      <Logo>
-        <PrimaryLogo>
-          <FontAwesomeIcon icon={faBookDead} />
-        </PrimaryLogo>
-        Murder
-        <SecondaryLogo>Mystery</SecondaryLogo>
-      </Logo>
+      <Logo />
       {!isMobile && (
         <MadeByContainer>
           A game made by
@@ -53,33 +47,6 @@ const Container = styled.header`
     position: sticky;
     bottom: 0;
   }
-`;
-
-const Logo = styled.h1`
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  font-size: 22px;
-  @media (max-width: 667px) {
-    font-size: 18px;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    font-size: 20px;
-  }
-`;
-
-const PrimaryLogo = styled.span`
-  font-size: 25px;
-  font-weight: 900;
-  @media (max-width: 667px) {
-    font-size: 21px;
-  }
-  @media (min-width: 668px) and (max-width: 1024px) {
-    font-size: 23px;
-  }
-`;
-
-const SecondaryLogo = styled.span`
-  font-weight: 400;
 `;
 
 const MadeByContainer = styled.div`

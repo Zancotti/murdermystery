@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { lightGrey } from 'styles/colors';
-import { Container } from 'components';
-import { Button } from 'styledComponents';
+import { Button, Container } from 'styledComponents';
 import { files, persons, inbox } from 'reducers';
 
 export const OptionsScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isGuest = useSelector(
+    state => state.user.user.email === 'guest@guest.com',
+  );
 
   const restartGame = () => {
     dispatch(files.actions.reset());
@@ -22,7 +24,9 @@ export const OptionsScreen = () => {
     <Container>
       <Content>
         <h1>Options</h1>
-        <Button onClick={() => console.log('text')} text="Save" />
+        {!isGuest && (
+          <Button onClick={() => console.log('Saving')} text="Save" />
+        )}
         <Button onClick={() => restartGame()} text="Restart" />
       </Content>
     </Container>

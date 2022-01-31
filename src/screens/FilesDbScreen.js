@@ -5,9 +5,9 @@ import { useSelector, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
 import { files } from 'reducers';
 import { useSafeDispatch } from 'hooks';
-import { FindSearchItem, AccessedFileList } from 'components';
+import { FindSearchItem, AccessedItemList } from 'components';
 import { FileDetails, SearchInputContainer } from 'components';
-import { Container } from 'components';
+import { Container } from 'styledComponents';
 import { API_URL } from 'utils/urls';
 import { useAuthenticatedFetch, useSafeSet } from 'hooks';
 import { useNavigate } from 'react-router-dom';
@@ -36,8 +36,6 @@ export const FilesDbScreen = () => {
   if (error) {
     Navigate('/error');
   }
-
-  console.log('fileSearchResult', fileSearchResult);
 
   useEffect(() => {
     if (!fileIdOnSubmit) {
@@ -104,9 +102,17 @@ export const FilesDbScreen = () => {
           )}
 
           {accessedFileList.length !== 0 && (
-            <AccessedFileList
-              accessedFileList={accessedFileList}
-              selectedFile={selectedFile}
+            <AccessedItemList
+              title="Accessed Files"
+              accessedItemList={accessedFileList}
+              selectedItem={selectedFile}
+              onItemClick={file =>
+                dispatch(
+                  files.actions.setSelectedFile({
+                    selectedFile: file,
+                  }),
+                )
+              }
             />
           )}
         </SearchContainer>

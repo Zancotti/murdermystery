@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-export const Button = ({ text, onClick }) => {
-  return <Btn onClick={onClick}>{text}</Btn>;
+export const Button = ({ text, onClick, disabled }) => {
+  return (
+    <Btn onClick={onClick} disabled={disabled}>
+      {text}
+    </Btn>
+  );
 };
 
 const Btn = styled.button`
@@ -38,5 +42,11 @@ const Btn = styled.button`
   &:active {
     box-shadow: rgba(0, 0, 0, 0.15) 0 2px 4px inset,
       rgba(0, 0, 0, 0.4) 0 1px 1px;
+  }
+  &:disabled {
+    cursor: auto;
+    background-color: darkGrey;
+    background-image: linear-gradient(darkGrey, darkGrey);
+    border: 1px solid darkGrey;
   }
 `;

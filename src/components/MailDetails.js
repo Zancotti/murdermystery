@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { white, darkGrey } from 'styles/colors';
@@ -13,8 +13,7 @@ import { useSafeDispatch } from 'hooks';
 export const MailDetails = () => {
   const selectedMail = useSelector(state => state.inbox.selectedMail);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
+  const dispatch = useSafeDispatch();
 
   return (
     <MailDetailContainer>

@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
 import { persons, inbox } from 'reducers';
-import { PersonDetails, FindSearchItem } from 'components';
-import { Container, AccessedPersonsList } from 'components';
+import { PersonDetails, FindSearchItem, AccessedItemList } from 'components';
+import { Container } from 'styledComponents';
 import { SearchInputContainer } from 'components';
 import { API_URL } from 'utils/urls';
 import { useSafeSet, useSafeDispatch } from 'hooks';
@@ -120,9 +120,17 @@ export const PersonsDbScreen = () => {
           )}
 
           {accessedPersonList.length !== 0 && (
-            <AccessedPersonsList
-              accessedPersonList={accessedPersonList}
-              selectedPerson={selectedPerson}
+            <AccessedItemList
+              accessedItemList={accessedPersonList}
+              selectedItem={selectedPerson}
+              title="Accessed Persons"
+              onItemClick={person =>
+                dispatch(
+                  persons.actions.setSelectedPerson({
+                    selectedPerson: person,
+                  }),
+                )
+              }
             />
           )}
         </SearchContainer>

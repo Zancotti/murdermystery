@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { lightGrey } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
-import { Container } from 'components';
-import { Button, Input } from 'styledComponents';
+import { Button, Input, Container } from 'styledComponents';
 
 export const FinalReportScreen = () => {
   const [reportDetails, setReportDetails] = useState({
@@ -26,79 +25,85 @@ export const FinalReportScreen = () => {
       {((isTabletOrMobile && !isSubmitClicked) || !isTabletOrMobile) && (
         <FinalReport>
           <h1>Final Report</h1>
-          {!isSubmitClicked && (
-            <Form onSubmit={formOnSubmit}>
-              <FindingsSection>
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  onChange={event =>
-                    setReportDetails({
-                      ...reportDetails,
-                      murderer: event.target.value.toLowerCase(),
-                    })
-                  }
-                  value={reportDetails.murderer}
-                  required={true}
-                />
-                <span>killed</span>
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  onChange={event =>
-                    setReportDetails({
-                      ...reportDetails,
-                      victim: event.target.value.toLowerCase(),
-                    })
-                  }
-                  value={reportDetails.victim}
-                  required={true}
-                />
-              </FindingsSection>
-              <FindingsSection>
-                <span>The killer was the victims</span>
-                <Select
-                  defaultValue={reportDetails.relationship}
-                  required
-                  onChange={event =>
-                    setReportDetails({
-                      ...reportDetails,
-                      relationship: event.currentTarget.value,
-                    })
-                  }
-                >
-                  <option value="" disabled>
-                    Choose option
-                  </option>
-                  <option value="Son">Son</option>
-                  <option value="Daughter">Daugther</option>
-                  <option value="Neighbour">Neighbour</option>
-                  <option value="Business partner">Business partner</option>
-                  <option value="Cleaner">Cleaner</option>
-                  <option value="Friend">Friend</option>
-                  <option value="Wife">Wife</option>
-                  <option value="Gardener">Gardener</option>
-                  <option value="Employee">Other employee</option>
-                </Select>
-              </FindingsSection>
-              <FindingsSection>
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  onChange={event =>
-                    setReportDetails({
-                      ...reportDetails,
-                      inheriter: event.target.value,
-                    })
-                  }
-                  value={reportDetails.inheriter}
-                  required={true}
-                />
-                <span>will take over the familys company.</span>
-              </FindingsSection>
-              <Button text="Submit" onClick={() => console.log('submit')} />
-            </Form>
-          )}
+          <Form onSubmit={formOnSubmit}>
+            <FindingsSection>
+              <Input
+                type="text"
+                placeholder="Name"
+                onChange={event =>
+                  setReportDetails({
+                    ...reportDetails,
+                    murderer: event.target.value,
+                  })
+                }
+                value={reportDetails.murderer}
+                required={true}
+                disabled={isSubmitClicked}
+              />
+              <span>killed</span>
+              <Input
+                type="text"
+                placeholder="Name"
+                onChange={event =>
+                  setReportDetails({
+                    ...reportDetails,
+                    victim: event.target.value.toLowerCase(),
+                  })
+                }
+                value={reportDetails.victim}
+                required={true}
+                disabled={isSubmitClicked}
+              />
+            </FindingsSection>
+            <FindingsSection>
+              <span>The killer was the victims</span>
+              <Select
+                defaultValue={reportDetails.relationship}
+                required
+                onChange={event =>
+                  setReportDetails({
+                    ...reportDetails,
+                    relationship: event.currentTarget.value,
+                  })
+                }
+                disabled={isSubmitClicked}
+              >
+                <option value="" disabled>
+                  Choose option
+                </option>
+                <option value="Son">Son</option>
+                <option value="Daughter">Daugther</option>
+                <option value="Neighbour">Neighbour</option>
+                <option value="Business partner">Business partner</option>
+                <option value="Cleaner">Cleaner</option>
+                <option value="Friend">Friend</option>
+                <option value="Wife">Wife</option>
+                <option value="Gardener">Gardener</option>
+                <option value="Employee">Other employee</option>
+              </Select>
+            </FindingsSection>
+            <FindingsSection>
+              <Input
+                type="text"
+                placeholder="Name"
+                onChange={event =>
+                  setReportDetails({
+                    ...reportDetails,
+                    inheriter: event.target.value,
+                  })
+                }
+                value={reportDetails.inheriter}
+                required={true}
+                disabled={isSubmitClicked}
+              />
+              <span>will take over the familys company.</span>
+            </FindingsSection>
+            <Button
+              text="Submit"
+              onClick={() => console.log('submit')}
+              disabled={isSubmitClicked}
+            />
+          </Form>
         </FinalReport>
       )}
       {isSubmitClicked && (
@@ -109,7 +114,7 @@ export const FinalReportScreen = () => {
 };
 
 const FinalReport = styled.div`
-  width: 50%;
+  width: 40%;
   background-color: ${lightGrey};
   border-radius: 10px;
   padding: 10px;
@@ -141,7 +146,6 @@ const FindingsSection = styled.div`
 
 const Select = styled.select`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  width: 120px;
   padding: 5px;
   border: none;
 `;

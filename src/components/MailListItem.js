@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { white, accent, darkGrey } from 'styles/colors';
@@ -20,8 +19,7 @@ const getTimeStamp = timeStamp => {
 };
 
 export const MailListItem = ({ mail, selectedMail, isTabletOrMobile }) => {
-  const unsafeDispatch = useDispatch();
-  const dispatch = useSafeDispatch(unsafeDispatch);
+  const dispatch = useSafeDispatch();
   return (
     <MailListItemContainer
       key={mail._id}
