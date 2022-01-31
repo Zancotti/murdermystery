@@ -7,6 +7,7 @@ import { MailDetails, MailListItem, Container } from 'components';
 import { API_URL } from 'utils/urls';
 import { inbox } from 'reducers';
 import { useAuthenticatedFetch } from 'hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const InboxScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -16,14 +17,18 @@ export const InboxScreen = () => {
     data => inbox.actions.setMailList({ mailList: data }),
     [],
   );
-
-  const mailList = useAuthenticatedFetch(
+  const navigate = useNavigate();
+  const { dataList, error } = useAuthenticatedFetch(
     API_URL('mails'),
     state => state.inbox.mailList,
     mailListDispatch,
   );
 
-  const filteredList = mailList.filter(mail =>
+  if (error) {
+    navigate('/error');
+  }
+
+  const filteredList = dataList.filter(mail =>
     triggeredEvents.includes(mail.event),
   );
   return (

@@ -10,6 +10,7 @@ import { FileDetails, SearchInputContainer } from 'components';
 import { Container } from 'components';
 import { API_URL } from 'utils/urls';
 import { useAuthenticatedFetch, useSafeSet } from 'hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const FilesDbScreen = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -20,16 +21,21 @@ export const FilesDbScreen = () => {
   const [searchString, setSearchString] = useState('');
   const [fileIdOnSubmit, setFileIdOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useSafeSet(false);
+  const Navigate = useNavigate();
   const fileListDispatch = useCallback(
     data => files.actions.setFileList({ fileList: data }),
     [],
   );
 
-  const fileList = useAuthenticatedFetch(
+  const { dataList, error } = useAuthenticatedFetch(
     API_URL('files'),
     state => state.files.fileList,
     fileListDispatch,
   );
+
+  if (error) {
+    Navigate('/error');
+  }
 
   console.log('fileSearchResult', fileSearchResult);
 
@@ -40,14 +46,14 @@ export const FilesDbScreen = () => {
       }, 2000);
       return;
     }
-    const file = fileList.find(
+    const file = dataList.find(
       file => file.fileId.toLowerCase() === fileIdOnSubmit.toLowerCase(),
     );
     dispatch(files.actions.setFileSearchResult({ file }));
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-  }, [fileIdOnSubmit, accessedFileList, fileList, dispatch, setIsLoading]);
+  }, [fileIdOnSubmit, accessedFileList, dataList, dispatch, setIsLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();

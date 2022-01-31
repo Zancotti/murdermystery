@@ -114,7 +114,6 @@ export const LoginScreen = () => {
             </ButtonContainer>
           </LoginForm>
           <Button text="Log in as guest" onClick={onGuestButtonClick} />
-          {error && <ErrorContainer>{error}</ErrorContainer>}
         </Container>
       </RightColumn>
     </Main>
@@ -168,10 +167,4 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   column-gap: 5px;
-`;
-
-const ErrorContainer = styled.div`
-  background-color: #f4f6f8;
-  width: 100%;
-  padding 10px;
 `;

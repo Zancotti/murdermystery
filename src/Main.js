@@ -1,22 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MenuBar } from 'components/MenuBar';
-import { Header } from 'components/Header';
-import { InboxScreen } from 'screens/InboxScreen';
-import { PersonsDbScreen } from 'screens/PersonsDbScreen';
-import { LoginScreen } from 'screens/LoginScreen';
-import { FilesDbScreen } from 'screens/FilesDbScreen';
-import { TelephoneScreen } from 'screens/TelephoneScreen';
-import { FinalReportScreen } from 'screens/FinalReportScreen';
-import { OptionsScreen } from 'screens/OptionsScreen';
-import { useSelector } from 'react-redux';
+import { MenuBar, Header } from 'components';
+import { InboxScreen, PersonsDbScreen, LoginScreen } from 'screens';
+import { FilesDbScreen, TelephoneScreen, FinalReportScreen } from 'screens';
+import { OptionsScreen, ErrorScreen } from 'screens';
 
 export const Main = () => {
-  // const isAuthenticated = true;
-  const isAuthenticated = useSelector(
-    store => store.user.user.accessToken != null,
-  );
+  const isAuthenticated = true;
+  // const isAuthenticated = useSelector(
+  //   store => store.user.user.accessToken != null,
+  // );
 
   return (
     <BrowserRouter>
@@ -38,6 +33,7 @@ export const Main = () => {
                 <Route path="/finalreport" element={<FinalReportScreen />} />
                 <Route path="/options" element={<OptionsScreen />} />
                 <Route path="/telephone" element={<TelephoneScreen />} />
+                <Route path="/error" element={<ErrorScreen />} />
               </Routes>
             </MainContainer>
           </Content>

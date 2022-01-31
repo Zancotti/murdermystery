@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, batch } from 'react-redux';
 import styled from 'styled-components/macro';
+import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { lightGrey } from 'styles/colors';
 import { persons, inbox } from 'reducers';
@@ -17,6 +18,7 @@ export const PersonsDbScreen = () => {
   const [nameOnSubmit, setNameOnSubmit] = useState(null);
   const [isLoading, setIsLoading] = useSafeSet(false);
   const dispatch = useSafeDispatch();
+  const navigate = useNavigate();
   const accessedPersonList = useSelector(
     state => state.persons.accessedPersonList,
   );
@@ -28,13 +30,15 @@ export const PersonsDbScreen = () => {
     data => persons.actions.setPersonList({ personList: data }),
     [],
   );
-
-  const personList = useAuthenticatedFetch(
+  const { dataList, error } = useAuthenticatedFetch(
     API_URL('persons'),
     state => state.persons.personList,
     personListDispatch,
   );
 
+  if (error) {
+    navigate('/error');
+  }
   useEffect(() => {
     if (!nameOnSubmit) {
       setTimeout(() => {
@@ -44,7 +48,7 @@ export const PersonsDbScreen = () => {
       return;
     }
 
-    const person = personList.find(
+    const person = dataList.find(
       person =>
         person.firstName.toLowerCase() + ' ' + person.lastName.toLowerCase() ===
         nameOnSubmit.toLowerCase(),
@@ -54,7 +58,7 @@ export const PersonsDbScreen = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-  }, [nameOnSubmit, accessedPersonList, personList, dispatch, setIsLoading]);
+  }, [nameOnSubmit, accessedPersonList, dataList, dispatch, setIsLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();
