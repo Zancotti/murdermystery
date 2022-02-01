@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { lightGrey } from 'styles/colors';
-import { Button, Container } from 'styledComponents';
+import { Button, Container, DialogComponent } from 'styledComponents';
 import { files, persons, inbox, user } from 'reducers';
 import { API_URL } from 'utils/urls';
 
@@ -11,13 +11,18 @@ export const OptionsScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userObject = useSelector(state => state.user.user);
-  const isGuest = user.email === 'guest@guest.com';
-
+  const isGuest = userObject.email === 'guest@guest.com';
   const fileReducerContent = useSelector(state => state.files);
   const triggeredEvents = useSelector(state => state.inbox.triggeredEvents);
+  const mailList = useSelector(state => state.inbox.mailList);
   const accessedPersonList = useSelector(
     state => state.persons.accessedPersonList,
   );
+  const [modalState, setModalState] = React.useState({
+    isOpen: false,
+    isSuccess: false,
+    text: '',
+  });
 
   const restartGame = () => {
     batch(() => {
@@ -29,25 +34,26 @@ export const OptionsScreen = () => {
   };
 
   const logout = () => {
-    dispatch(user.actions.setInitialUser());
+    batch(() => {
+      dispatch(files.actions.reset());
+      dispatch(persons.actions.reset());
+      dispatch(inbox.actions.reset());
+      dispatch(user.actions.setInitialUser());
+    });
   };
 
   const saveGame = () => {
-    console.log('AccessedFileList', fileReducerContent.accessedFileList);
-    console.log('triggeredEvents', triggeredEvents);
-    console.log('AccessedPERSON', accessedPersonList);
-    console.log('userEmail', userObject.email);
-
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: user.accessToken,
+        Authorization: userObject.accessToken,
       },
 
       body: JSON.stringify({
         accessedFileList: fileReducerContent.accessedFileList,
         triggeredEvents: triggeredEvents,
+        mailList: mailList,
         accessedPersonList: accessedPersonList,
         userEmail: userObject.email,
       }),
@@ -57,9 +63,17 @@ export const OptionsScreen = () => {
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          console.log('sucess');
+          setModalState({
+            isOpen: true,
+            isSuccess: true,
+            text: 'You successfully saved your game!',
+          });
         } else {
-          console.log('not sucess');
+          setModalState({
+            isOpen: true,
+            isSuccess: false,
+            text: 'Oh no! There was an error saving your game. Try again later!',
+          });
         }
       });
   };
@@ -68,10 +82,17 @@ export const OptionsScreen = () => {
     <Container>
       <Content>
         <h1>Options</h1>
+        Logged in as {isGuest ? 'Guest Player' : userObject.email}
         {!isGuest && <Button onClick={() => saveGame()} text="Save" />}
         <Button onClick={() => restartGame()} text="Restart" />
         <Button onClick={() => logout()} text="Logout" />
       </Content>
+      <DialogComponent
+        text={modalState.text}
+        isOpen={modalState.isOpen}
+        isSuccess={modalState.isSuccess}
+        onDismiss={() => setModalState({ isOpen: false })}
+      />
     </Container>
   );
 };

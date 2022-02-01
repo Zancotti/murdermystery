@@ -15,7 +15,6 @@ export const user = createSlice({
     setUser: (store, action) => {
       store.user = action.payload;
     },
-
     setError: (store, action) => {
       store.error = action.payload;
     },

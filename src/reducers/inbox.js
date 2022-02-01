@@ -13,7 +13,16 @@ export const inbox = createSlice({
     reset: () => initialState,
 
     setMailList: (state, action) => {
-      const { mailList } = action.payload;
+      const { mailList, skipTimeUpdate } = action.payload;
+
+      console.log('skip update', skipTimeUpdate);
+
+      if (!skipTimeUpdate) {
+        mailList.forEach(mail => {
+          mail.timeStamp = new Date();
+        });
+      }
+
       state.mailList = mailList;
     },
 
@@ -33,6 +42,14 @@ export const inbox = createSlice({
     },
     addTriggeredEvent: (state, action) => {
       const { event } = action.payload;
+
+      const mailsWithEvent = state.mailList.filter(
+        mail => mail.event === event,
+      );
+      mailsWithEvent.forEach(mail => {
+        mail.timeStamp = new Date();
+      });
+
       if (!state.triggeredEvents.includes(event)) {
         state.triggeredEvents = [...state.triggeredEvents, event];
       }

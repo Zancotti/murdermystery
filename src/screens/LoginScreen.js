@@ -9,6 +9,7 @@ import { useSafeDispatch } from 'hooks';
 import { API_URL } from 'utils/urls';
 import { user, files, persons, inbox } from 'reducers';
 import { batch, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const getOption = (email, password) => {
   return {
@@ -32,28 +33,30 @@ export const LoginScreen = () => {
   const [loginDetails, setLoginDetails] = useState({ email: '', password: '' });
   const [actionType, setActionType] = useState('');
   const [error, setError] = useState('');
-
   const handleSubmitForm = event => {
     event.preventDefault();
     onSignUpLogInButtonClick();
   };
 
-  const onLogin = user => {
-    const opt = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-
-      body: JSON.stringify({
-        userEmail: user.email,
-      }),
+  const onLoad = user => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: user.accessToken,
     };
-    fetch(API_URL('load'), opt)
-      .then(res => res.json())
-      .then(data => {
-        const { accessedFileList, accessedPersonList, triggeredEvents } = data;
+    const body = JSON.stringify({
+      userEmail: user.email,
+    });
 
+    axios
+      .post(API_URL('load'), body, { headers })
+      .then(res => {
+        console.log('post res', res);
+        const {
+          accessedFileList,
+          accessedPersonList,
+          mailList,
+          triggeredEvents,
+        } = res.data;
         batch(() => {
           unsafeDispatch(
             files.actions.setAccessedFileList({ accessedFileList }),
@@ -61,10 +64,18 @@ export const LoginScreen = () => {
           unsafeDispatch(
             persons.actions.setAccessedPersonList({ accessedPersonList }),
           );
+          unsafeDispatch(
+            inbox.actions.setMailList({ mailList, skipTimeUpdate: true }),
+          );
           unsafeDispatch(inbox.actions.setTriggeredEvents({ triggeredEvents }));
         });
       })
-      .finally(() => navigate('/mails'));
+      .finally(() => {
+        navigate('/mails');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const onSignUpLogInButtonClick = () => {
@@ -73,8 +84,9 @@ export const LoginScreen = () => {
       .then(res => res.json())
       .then(data => {
         if (data.success) {
+          console.log('login', data);
           dispatch(user.actions.setUser(data.response));
-          onLogin(data.response);
+          onLoad(data.response);
         } else {
           dispatch(user.actions.setInitialUser());
           if (actionType === 'signup') {

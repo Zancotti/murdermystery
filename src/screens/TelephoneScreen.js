@@ -3,15 +3,16 @@ import styled from 'styled-components/macro';
 import iphone from '../Images/iphone.png';
 import { lightGrey, accent, white } from 'styles/colors';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { inbox } from 'reducers';
+import { useSafeDispatch } from 'hooks';
+import { batch } from 'react-redux';
 
 export const TelephoneScreen = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [passcodeGuess, setPasscodeGuess] = useState('');
   const [guessedCorrect, setGuessedCorrect] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useSafeDispatch();
 
   return (
     <Container>
@@ -21,11 +22,18 @@ export const TelephoneScreen = () => {
           if (passcodeGuess === '1987') {
             setGuessedCorrect(true);
             setPasscodeGuess('');
-            dispatch(
-              inbox.actions.addTriggeredEvent({
-                event: 'telephoneUnlocked',
-              }),
-            );
+            batch(() => {
+              dispatch(
+                inbox.actions.addTriggeredEvent({
+                  event: 'telephoneUnlocked',
+                }),
+              );
+              dispatch(
+                inbox.actions.setSelectedMail({
+                  selectedMail: null,
+                }),
+              );
+            });
             setTimeout(() => {
               navigate('/mails');
             }, 2000);

@@ -10,7 +10,6 @@ export const useSafeSet = initialValue => {
 
   const safeSet = useCallback(
     (...args) => {
-      console.log(args);
       if (mountedRef.current) {
         setState(...args);
       }

@@ -137,12 +137,12 @@ const SearchContainer = styled.div`
     width: 100%;
     border-radius: 0;
     grid-template-rows: auto auto auto auto 1fr 20%;
-    padding: 10px 10px 70px 10px;
+    padding: 10px 10px 60px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     grid-template-rows: auto auto auto auto 1fr 20%;
     width: 100%;
     border-radius: 0;
-    padding: 10px 10px 70px 10px;
+    padding: 10px 10px 60px 10px;
   }
 `;
