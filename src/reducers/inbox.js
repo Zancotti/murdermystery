@@ -37,5 +37,10 @@ export const inbox = createSlice({
         state.triggeredEvents = [...state.triggeredEvents, event];
       }
     },
+
+    setTriggeredEvents: (state, action) => {
+      const { triggeredEvents } = action.payload;
+      state.triggeredEvents = triggeredEvents;
+    },
   },
 });

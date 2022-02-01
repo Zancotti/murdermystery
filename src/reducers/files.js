@@ -18,6 +18,12 @@ export const files = createSlice({
       state.fileList = fileList;
     },
 
+    setAccessedFileList: (state, action) => {
+      const { accessedFileList } = action.payload;
+      console.log('setAccessedFileList', accessedFileList);
+      state.accessedFileList = accessedFileList;
+    },
+
     setSelectedFile: (state, action) => {
       const { selectedFile } = action.payload;
       state.selectedFile = selectedFile;

@@ -17,6 +17,11 @@ export const persons = createSlice({
       state.personList = personList;
     },
 
+    setAccessedPersonList: (state, action) => {
+      const { accessedPersonList } = action.payload;
+      state.accessedPersonList = accessedPersonList;
+    },
+
     setSelectedPerson: (state, action) => {
       const { selectedPerson } = action.payload;
       state.selectedPerson = selectedPerson;

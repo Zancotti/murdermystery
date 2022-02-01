@@ -7,7 +7,8 @@ import { Button, Input } from 'styledComponents';
 import { LoginHeader } from 'components';
 import { useSafeDispatch } from 'hooks';
 import { API_URL } from 'utils/urls';
-import { user } from 'reducers';
+import { user, files, persons, inbox } from 'reducers';
+import { batch, useDispatch } from 'react-redux';
 
 const getOption = (email, password) => {
   return {
@@ -26,6 +27,7 @@ const getOption = (email, password) => {
 export const LoginScreen = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 420px)' });
   const dispatch = useSafeDispatch();
+  const unsafeDispatch = useDispatch();
   const navigate = useNavigate();
   const [loginDetails, setLoginDetails] = useState({ email: '', password: '' });
   const [actionType, setActionType] = useState('');
@@ -36,6 +38,35 @@ export const LoginScreen = () => {
     onSignUpLogInButtonClick();
   };
 
+  const onLogin = user => {
+    const opt = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+      body: JSON.stringify({
+        userEmail: user.email,
+      }),
+    };
+    fetch(API_URL('load'), opt)
+      .then(res => res.json())
+      .then(data => {
+        const { accessedFileList, accessedPersonList, triggeredEvents } = data;
+
+        batch(() => {
+          unsafeDispatch(
+            files.actions.setAccessedFileList({ accessedFileList }),
+          );
+          unsafeDispatch(
+            persons.actions.setAccessedPersonList({ accessedPersonList }),
+          );
+          unsafeDispatch(inbox.actions.setTriggeredEvents({ triggeredEvents }));
+        });
+      })
+      .finally(() => navigate('/mails'));
+  };
+
   const onSignUpLogInButtonClick = () => {
     const options = getOption(loginDetails.email, loginDetails.password);
     fetch(API_URL(actionType), options)
@@ -43,7 +74,7 @@ export const LoginScreen = () => {
       .then(data => {
         if (data.success) {
           dispatch(user.actions.setUser(data.response));
-          navigate('/mails');
+          onLogin(data.response);
         } else {
           dispatch(user.actions.setInitialUser());
           if (actionType === 'signup') {

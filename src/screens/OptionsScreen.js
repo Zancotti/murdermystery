@@ -1,33 +1,76 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { lightGrey } from 'styles/colors';
 import { Button, Container } from 'styledComponents';
-import { files, persons, inbox } from 'reducers';
+import { files, persons, inbox, user } from 'reducers';
+import { API_URL } from 'utils/urls';
 
 export const OptionsScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isGuest = useSelector(
-    state => state.user.user.email === 'guest@guest.com',
+  const userObject = useSelector(state => state.user.user);
+  const isGuest = user.email === 'guest@guest.com';
+
+  const fileReducerContent = useSelector(state => state.files);
+  const triggeredEvents = useSelector(state => state.inbox.triggeredEvents);
+  const accessedPersonList = useSelector(
+    state => state.persons.accessedPersonList,
   );
 
   const restartGame = () => {
-    dispatch(files.actions.reset());
-    dispatch(persons.actions.reset());
-    dispatch(inbox.actions.reset());
+    batch(() => {
+      dispatch(files.actions.reset());
+      dispatch(persons.actions.reset());
+      dispatch(inbox.actions.reset());
+    });
     navigate('/mails');
+  };
+
+  const logout = () => {
+    dispatch(user.actions.setInitialUser());
+  };
+
+  const saveGame = () => {
+    console.log('AccessedFileList', fileReducerContent.accessedFileList);
+    console.log('triggeredEvents', triggeredEvents);
+    console.log('AccessedPERSON', accessedPersonList);
+    console.log('userEmail', userObject.email);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: user.accessToken,
+      },
+
+      body: JSON.stringify({
+        accessedFileList: fileReducerContent.accessedFileList,
+        triggeredEvents: triggeredEvents,
+        accessedPersonList: accessedPersonList,
+        userEmail: userObject.email,
+      }),
+    };
+
+    fetch(API_URL('save'), options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          console.log('sucess');
+        } else {
+          console.log('not sucess');
+        }
+      });
   };
 
   return (
     <Container>
       <Content>
         <h1>Options</h1>
-        {!isGuest && (
-          <Button onClick={() => console.log('Saving')} text="Save" />
-        )}
+        {!isGuest && <Button onClick={() => saveGame()} text="Save" />}
         <Button onClick={() => restartGame()} text="Restart" />
+        <Button onClick={() => logout()} text="Logout" />
       </Content>
     </Container>
   );
