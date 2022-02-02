@@ -18,7 +18,9 @@ export const useAuthenticatedFetch = (url, getSelector, action) => {
       })
       .then(res => {
         if (dataList && dataList.length > 0) return;
-        dispatch(action(res.data));
+        if (res.data.success) {
+          dispatch(action(res.data.content));
+        }
       })
       .catch(error => {
         console.log(error);

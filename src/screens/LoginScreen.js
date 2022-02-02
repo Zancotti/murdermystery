@@ -11,17 +11,19 @@ import { user, files, persons, inbox } from 'reducers';
 import { batch, useDispatch } from 'react-redux';
 import axios from 'axios';
 
-const getOption = (email, password) => {
+const getHeader = () => {
   return {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+  };
+};
 
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
+const getBody = (email, password) => {
+  return {
+    email: email,
+    password: password,
   };
 };
 
@@ -43,20 +45,20 @@ export const LoginScreen = () => {
       'Content-Type': 'application/json',
       Authorization: user.accessToken,
     };
-    const body = JSON.stringify({
+    const body = {
       userEmail: user.email,
-    });
+    };
 
     axios
       .post(API_URL('load'), body, { headers })
       .then(res => {
-        console.log('post res', res);
+        if (!res.data.success) return;
         const {
           accessedFileList,
           accessedPersonList,
           mailList,
           triggeredEvents,
-        } = res.data;
+        } = res.data.content;
         batch(() => {
           unsafeDispatch(
             files.actions.setAccessedFileList({ accessedFileList }),
@@ -72,51 +74,47 @@ export const LoginScreen = () => {
       })
       .finally(() => {
         navigate('/mails');
-      })
-      .catch(error => {
-        console.log(error);
       });
   };
 
   const onSignUpLogInButtonClick = () => {
-    const options = getOption(loginDetails.email, loginDetails.password);
-    fetch(API_URL(actionType), options)
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          console.log('login', data);
-          dispatch(user.actions.setUser(data.response));
-          onLoad(data.response);
+    const header = getHeader();
+    const body = getBody(loginDetails.email, loginDetails.password);
+
+    console.log(API_URL(actionType));
+    axios.post(API_URL(actionType), body, { header }).then(res => {
+      if (res.data.success) {
+        dispatch(user.actions.setUser(res.data.content));
+        onLoad(res.data.content);
+      } else {
+        dispatch(user.actions.setInitialUser());
+        if (actionType === 'signup') {
+          setError(
+            'Could not sign up. If you like to log in using an existing account please press log in!',
+          );
+          setActionType('');
         } else {
-          dispatch(user.actions.setInitialUser());
-          if (actionType === 'signup') {
-            setError(
-              'Could not sign up. If you like to log in using an existing account please press log in!',
-            );
-            setActionType('');
-          } else {
-            setError(
-              'Could not log in. If you like to create a new account please press sign up!',
-            );
-          }
+          setError(
+            'Could not log in. If you like to create a new account please press sign up!',
+          );
         }
-      });
+      }
+    });
   };
 
   const onGuestButtonClick = () => {
-    const options = getOption('guest@guest.com', 'guest');
+    const header = getHeader();
+    const body = getBody('guest@guest.com', 'guest');
 
-    fetch(API_URL(''), options)
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          dispatch(user.actions.setUser(data.response));
-          navigate('/mails');
-        } else {
-          dispatch(user.actions.setInitialUser());
-          setError('Could not log in as a guest right now, try again later!');
-        }
-      });
+    axios.post(API_URL(''), body, { header }).then(res => {
+      if (res.data.success) {
+        dispatch(user.actions.setUser(res.data.content));
+        navigate('/mails');
+      } else {
+        dispatch(user.actions.setInitialUser());
+        setError('Could not log in as a guest right now, try again later!');
+      }
+    });
   };
 
   return (

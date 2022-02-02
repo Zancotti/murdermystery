@@ -6,6 +6,7 @@ import { lightGrey } from 'styles/colors';
 import { Button, Container, DialogComponent } from 'styledComponents';
 import { files, persons, inbox, user } from 'reducers';
 import { API_URL } from 'utils/urls';
+import axios from 'axios';
 
 export const OptionsScreen = () => {
   const dispatch = useDispatch();
@@ -43,39 +44,34 @@ export const OptionsScreen = () => {
   };
 
   const saveGame = () => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: userObject.accessToken,
-      },
-
-      body: JSON.stringify({
-        accessedFileList: fileReducerContent.accessedFileList,
-        triggeredEvents: triggeredEvents,
-        mailList: mailList,
-        accessedPersonList: accessedPersonList,
-        userEmail: userObject.email,
-      }),
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: userObject.accessToken,
     };
 
-    fetch(API_URL('save'), options)
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setModalState({
-            isOpen: true,
-            isSuccess: true,
-            text: 'You successfully saved your game!',
-          });
-        } else {
-          setModalState({
-            isOpen: true,
-            isSuccess: false,
-            text: 'Oh no! There was an error saving your game. Try again later!',
-          });
-        }
-      });
+    const body = {
+      accessedFileList: fileReducerContent.accessedFileList,
+      triggeredEvents: triggeredEvents,
+      mailList: mailList,
+      accessedPersonList: accessedPersonList,
+      userEmail: userObject.email,
+    };
+
+    axios.post(API_URL('save'), body, { headers }).then(res => {
+      if (res.data.success) {
+        setModalState({
+          isOpen: true,
+          isSuccess: true,
+          text: 'You successfully saved your game!',
+        });
+      } else {
+        setModalState({
+          isOpen: true,
+          isSuccess: false,
+          text: 'Oh no! There was an error saving your game. Try again later!',
+        });
+      }
+    });
   };
 
   return (
