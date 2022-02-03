@@ -9,11 +9,22 @@ export const FinalReportScreen = () => {
     murderer: '',
     victim: '',
     relationship: '',
+    motive: '',
     inheriter: '',
   });
-
+  const { murderer, victim, relationship, motive, inheriter } = reportDetails;
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+
+  let score = 0;
+  const totalScore = 5;
+  if (murderer.toLowerCase() === 'robert delaware') score++;
+  if (victim.toLowerCase() === 'steven fisher') score++;
+  if (relationship.toLowerCase() === 'cleaner') score++;
+  if (motive.toLowerCase() === 'obsession') score++;
+  if (inheriter.toLowerCase() === 'henry fisher') score++;
+
+  const playerScore = (score / totalScore) * 100;
 
   const formOnSubmit = event => {
     event.preventDefault();
@@ -25,7 +36,7 @@ export const FinalReportScreen = () => {
       {((isTabletOrMobile && !isSubmitClicked) || !isTabletOrMobile) && (
         <FinalReport>
           <h1>Final Report</h1>
-          <Form onSubmit={formOnSubmit}>
+          <Form onSubmit={event => formOnSubmit(event)}>
             <MurdererSection>
               <InputFinalReport
                 type="text"
@@ -47,7 +58,7 @@ export const FinalReportScreen = () => {
                 onChange={event =>
                   setReportDetails({
                     ...reportDetails,
-                    victim: event.target.value.toLowerCase(),
+                    victim: event.target.value,
                   })
                 }
                 value={reportDetails.victim}
@@ -86,12 +97,12 @@ export const FinalReportScreen = () => {
             <MotiveSection>
               <Span>The victim got murdered due to</Span>
               <Select
-                defaultValue={reportDetails.relationship}
+                defaultValue={reportDetails.motive}
                 required
                 onChange={event =>
                   setReportDetails({
                     ...reportDetails,
-                    relationship: event.currentTarget.value,
+                    motive: event.currentTarget.value,
                   })
                 }
                 disabled={isSubmitClicked}
@@ -99,17 +110,27 @@ export const FinalReportScreen = () => {
                 <option value="" disabled>
                   Choose option
                 </option>
-                <option value="greed">
-                  A conflict due to financial interests
+                <option value="colleuge">
+                  A conflict with the CTO of BookFace
                 </option>
-                <option value="inherit">Fight about inherits of money</option>
-                <option value="">Neighbour</option>
-                <option value="Business partner">Business partner</option>
-                <option value="Cleaner">Cleaner</option>
-                <option value="Friend">Friend</option>
-                <option value="Wife">Wife</option>
-                <option value="Gardener">Gardener</option>
-                <option value="Employee">Other employee</option>
+                <option value="inheritageEllen">
+                  Fight about inheritage with Ellen Fisher
+                </option>
+                <option value="inheritageHenry">
+                  Fight about inheritage with Henry Fisher
+                </option>
+                <option value="BookFace heir">
+                  Fight about who will take over BookFace
+                </option>
+                <option value="obsession">
+                  Love for and obsession of Ellen Fisher
+                </option>
+                <option value="affair">
+                  him having an affair with another woman
+                </option>
+                <option value="wifeAffair">
+                  him founding out that his wife had an affair
+                </option>
               </Select>
             </MotiveSection>
             <FamilyBusinessSection>
@@ -126,18 +147,45 @@ export const FinalReportScreen = () => {
                 required={true}
                 disabled={isSubmitClicked}
               />
-              <Span>will take over the familys company.</Span>
+              <Span>will take over the family company.</Span>
             </FamilyBusinessSection>
-            <Button
-              text="Submit"
-              onClick={() => console.log('submit')}
-              disabled={isSubmitClicked}
-            />
+            <Button text="Submit" disabled={isSubmitClicked} />
           </Form>
         </FinalReport>
       )}
       {isSubmitClicked && (
-        <Conclusion>The feeling is that you got this wrong.....</Conclusion>
+        <Conclusion>
+          <h1>Conclusion</h1>
+          <Score>{`Score: ${playerScore} %`}</Score>
+          <p>
+            {murderer.toLowerCase() === 'robert delaware'
+              ? 'My gut feeling is that we got it right this time'
+              : 'we got it wrong'}
+          </p>
+          <p>
+            {victim.toLowerCase() === 'steven fisher'
+              ? 'My gut feeling is that we got it right this time'
+              : 'we got it wrong'}
+          </p>
+          <p>
+            {relationship.toLowerCase() === 'cleaner'
+              ? 'My gut feeling is that we got it right this time'
+              : 'we got it wrong'}
+          </p>
+          <p>
+            {motive.toLowerCase() === 'obsession'
+              ? 'My gut feeling is that we got it right this time'
+              : 'we got it wrong'}
+          </p>
+          <p>
+            {inheriter.toLowerCase() === 'henry fisher'
+              ? 'My gut feeling is that we got it right this time'
+              : 'we got it wrong'}
+          </p>
+
+          <p>Best Regards</p>
+          <span>Owen Matthews</span>
+        </Conclusion>
       )}
     </Container>
   );
@@ -227,4 +275,8 @@ const Span = styled.span`
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 100%;
   }
+`;
+
+const Score = styled.p`
+  font-weight: 700;
 `;
