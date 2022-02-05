@@ -28,9 +28,14 @@ export const InboxScreen = () => {
   if (error) {
     navigate('/error');
   }
+  // const filteredList = dataList.filter(mail =>
+  //   triggeredEvents.includes(mail.event),
+  // );
 
   const filteredList = dataList.filter(mail =>
-    triggeredEvents.includes(mail.event),
+    mail.event.every(triggeredEvent =>
+      triggeredEvents.includes(triggeredEvent),
+    ),
   );
   return (
     <Container>

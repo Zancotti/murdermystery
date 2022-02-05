@@ -159,28 +159,28 @@ export const FinalReportScreen = () => {
           <Score>{`Score: ${playerScore} %`}</Score>
           <p>
             {murderer.toLowerCase() === 'robert delaware'
-              ? 'My gut feeling is that we got it right this time'
-              : 'we got it wrong'}
+              ? 'I did not see it coming if I am honest. To think that Robert Delaware is capable of murder. I must say, good work that you found and connected the dots.'
+              : 'I do understand why you would feel that that is the murderer but I have a gut feeling we are missing something here. I think we need to investigate this more deeply.'}
           </p>
           <p>
             {victim.toLowerCase() === 'steven fisher'
-              ? 'My gut feeling is that we got it right this time'
-              : 'we got it wrong'}
+              ? 'Steven Fisher was indeed the person found dead in the Fisher residence. He will be missed by many, even if he did take part of his share of controversey.'
+              : 'We are in awe that you would be able to get the victim wrong, did you even read my introduction email? It is Steven Fisher, the famous tech CEO that has died.'}
           </p>
           <p>
-            {relationship.toLowerCase() === 'cleaner'
-              ? 'My gut feeling is that we got it right this time'
-              : 'we got it wrong'}
+            {relationship.toLowerCase() === 'gardener'
+              ? 'It is crazy to think that Delaware had worked for 10 years as a gardener for the Fishers.'
+              : 'I dont think we have nailed the relation between the killer and the victim. We need to make sure to pin-point how the murderer knew Steven Fisher.'}
           </p>
           <p>
             {motive.toLowerCase() === 'obsession'
-              ? 'My gut feeling is that we got it right this time'
-              : 'we got it wrong'}
+              ? 'The obsession Delaware had for the Fishers daughter is what eventually caused Stevens death. I wonder how Steven found out about it, but what is certain is that the afternoon meeting was Steven confronting Delaware. Whatever was said during this meeting caused Delaware to snap and push Steven down the stairs to his death.'
+              : 'It is an interesting theory to why Steven Fisher was murdered, but I am not buying it. The evidence for it is just not there.'}
           </p>
           <p>
             {inheriter.toLowerCase() === 'henry fisher'
-              ? 'My gut feeling is that we got it right this time'
-              : 'we got it wrong'}
+              ? 'A lot of people are in despair that Henry Fisher is set to take over the familys companies. His sister, Ellen, just seem like a much better fit with her background, dont you think?'
+              : 'From the sources and documentation I have read, that it is not who is set to take over Fishers companies.'}
           </p>
 
           <p>Best Regards</p>

@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, batch } from 'react-redux';
 import { lightGrey } from 'styles/colors';
-import { files } from 'reducers';
+import { files, inbox } from 'reducers';
 import { useSafeDispatch } from 'hooks';
 import { FindSearchItem, AccessedItemList } from 'components';
 import { FileDetails, SearchInputContainer } from 'components';
@@ -96,6 +96,13 @@ export const FilesDbScreen = () => {
                   dispatch(
                     files.actions.addAccessedFile({ file: fileSearchResult }),
                   );
+                  if (fileSearchResult.triggersEvent) {
+                    dispatch(
+                      inbox.actions.addTriggeredEvent({
+                        event: fileSearchResult.triggersEvent,
+                      }),
+                    );
+                  }
                 });
               }}
             />

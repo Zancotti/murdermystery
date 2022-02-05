@@ -46,6 +46,7 @@ export const inbox = createSlice({
       const mailsWithEvent = state.mailList.filter(
         mail => mail.event === event,
       );
+
       mailsWithEvent.forEach(mail => {
         mail.timeStamp = new Date();
       });

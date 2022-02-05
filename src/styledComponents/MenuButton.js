@@ -15,7 +15,10 @@ export const MenuButton = ({
   const numberOfUnreadMessages = useSelector(state =>
     state.inbox.mailList
       ? state.inbox.mailList.filter(
-          mail => mail.unread && triggeredEvents.includes(mail.event),
+          mail =>
+            mail.unread &&
+            mail.event.every(element => triggeredEvents.includes(element)),
+          // mail => mail.unread && triggeredEvents.includes(mail.event),
         ).length
       : 0,
   );
