@@ -1,19 +1,11 @@
-# Technigo React Starter App
+# Murder Mystery
 
-This app has been generated using `create-react-app`, then cleaned up a little so we have a project with just the elements we need to get started.
+This online game was made by Sabrina Zancotti as my final project for the
+Technigo frontend developer bootcamp 2021/2022.
 
-Add components in the `src` folder and use them in `src/app.js` to get started.
+The frontend of Murder Mystery was developed in React JS and Redux. The backend
+was developed in Node.js using Express API, Moongose and MongoDB for the
+backend.
 
-## Usage
-
-1. On GitHub, click the 'use this template' button to create a new repo on your account
-1. Clone the new repo to your computer
-1. Install required dependencies with npm: `npm install`
-1. Start the project: `npm start`
-
-Alternatively, if you don't want a new git repo on your account;
-
-1. Download & extract the [latest release](https://github.com/Technigo/react-starter/releases/latest) from GitHub
-1. Open the directory in the terminal: `cd /path/to/react-starter`
-1. Install required dependencies with npm: `npm install`
-1. Start the project: `npm start`
+Link to the backend repository:
+https://github.com/Zancotti/murdermystery-backend
