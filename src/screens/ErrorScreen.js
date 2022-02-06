@@ -22,12 +22,12 @@ export const ErrorScreen = () => {
         <Lottie
           options={defaultOptions}
           height={100}
-          width={250}
+          width={100}
           style={{ marginTop: '20px' }}
         />
       )}
       {!isMobile && (
-        <Lottie options={defaultOptions} height={400} width={400} />
+        <Lottie options={defaultOptions} height={250} width={250} />
       )}
       <ErrorText>
         Something went wrong with the request to the backend, please try again
@@ -47,8 +47,8 @@ const ErrorContainer = styled.section`
 `;
 
 const ErrorText = styled.div`
-  margin-top: 10px;
+  padding: 15px;
   font-size: 15px;
-  width: 400px;
   text-align: center;
+  max-width: 400px;
 `;

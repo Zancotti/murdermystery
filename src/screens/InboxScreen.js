@@ -32,11 +32,15 @@ export const InboxScreen = () => {
   //   triggeredEvents.includes(mail.event),
   // );
 
-  const filteredList = dataList.filter(mail =>
-    mail.event.every(triggeredEvent =>
-      triggeredEvents.includes(triggeredEvent),
-    ),
-  );
+  const filteredList = dataList
+    .filter(mail =>
+      mail.event.every(triggeredEvent =>
+        triggeredEvents.includes(triggeredEvent),
+      ),
+    )
+    .sort(function (a, b) {
+      return new Date(b.timeStamp) - new Date(a.timeStamp);
+    });
   return (
     <Container>
       {(!selectedMail || !isTabletOrMobile) && (

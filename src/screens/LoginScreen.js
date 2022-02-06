@@ -81,7 +81,6 @@ export const LoginScreen = () => {
     const header = getHeader();
     const body = getBody(loginDetails.email, loginDetails.password);
 
-    console.log(API_URL(actionType));
     axios.post(API_URL(actionType), body, { header }).then(res => {
       if (res.data.success) {
         dispatch(user.actions.setUser(res.data.content));

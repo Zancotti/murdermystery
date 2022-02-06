@@ -20,7 +20,7 @@ export const FinalReportScreen = () => {
   const totalScore = 5;
   if (murderer.toLowerCase() === 'robert delaware') score++;
   if (victim.toLowerCase() === 'steven fisher') score++;
-  if (relationship.toLowerCase() === 'cleaner') score++;
+  if (relationship.toLowerCase() === 'gardener') score++;
   if (motive.toLowerCase() === 'obsession') score++;
   if (inheriter.toLowerCase() === 'henry fisher') score++;
 
@@ -80,16 +80,17 @@ export const FinalReportScreen = () => {
                 disabled={isSubmitClicked}
               >
                 <option value="" disabled>
-                  Choose option
+                  Choose relation
                 </option>
                 <option value="son">Son</option>
                 <option value="daughter">Daugther</option>
                 <option value="neighbour">Neighbour</option>
                 <option value="businessPartner">Business partner</option>
-                <option value="cleaner">Cleaner</option>
+                <option value="cleaner">Butler</option>
+                <option value="cook">Cook</option>
+                <option value="gardener">Gardener</option>
                 <option value="friend">Friend</option>
                 <option value="wife">Wife</option>
-                <option value="gardener">Gardener</option>
                 <option value="employee">Other employee</option>
               </Select>
             </RelationshipSection>
@@ -108,28 +109,18 @@ export const FinalReportScreen = () => {
                 disabled={isSubmitClicked}
               >
                 <option value="" disabled>
-                  Choose option
+                  Choose motive
                 </option>
-                <option value="colleuge">
-                  A conflict with the CTO of BookFace
-                </option>
-                <option value="inheritageEllen">
-                  Fight about inheritage with Ellen Fisher
-                </option>
-                <option value="inheritageHenry">
-                  Fight about inheritage with Henry Fisher
-                </option>
-                <option value="BookFace heir">
+                <option value="colleuge">A conflict within BookFace</option>
+                <option value="blackmail">Being blackmailed</option>
+                <option value="inheritage">Fight about inheritage</option>
+                <option value="bookFaceHeir">
                   Fight about who will take over BookFace
                 </option>
-                <option value="obsession">
-                  Love for and obsession of Ellen Fisher
-                </option>
-                <option value="affair">
-                  him having an affair with another woman
-                </option>
+                <option value="obsession">Love and obsession</option>
+                <option value="affair">Having an affair</option>
                 <option value="wifeAffair">
-                  him founding out that his wife had an affair
+                  finding out that the partner had an affair
                 </option>
               </Select>
             </MotiveSection>
@@ -260,6 +251,9 @@ const Select = styled.select`
 const Conclusion = styled.div`
   margin: 10px;
   padding: 10px;
+  @media (max-width: 667px) {
+    padding: 10px 10px 60px 10px;
+  }
 `;
 
 const Span = styled.span`

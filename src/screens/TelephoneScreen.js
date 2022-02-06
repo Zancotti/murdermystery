@@ -14,6 +14,15 @@ export const TelephoneScreen = () => {
   const navigate = useNavigate();
   const dispatch = useSafeDispatch();
 
+  const onPasscodeInput = e => {
+    const value = e.target.value;
+    const regEx = /^[0-9\b]+$/;
+
+    if (value.length <= 4 && (value === '' || regEx.test(value))) {
+      setPasscodeGuess(value);
+    }
+  };
+
   return (
     <Container>
       <TelephoneForm
@@ -37,13 +46,15 @@ export const TelephoneScreen = () => {
             setTimeout(() => {
               navigate('/mails');
             }, 2000);
+          } else {
+            setPasscodeGuess('');
           }
         }}
       >
         <Content>
           <PasscodeInput
             type="text"
-            onChange={event => setPasscodeGuess(event.target.value)}
+            onChange={onPasscodeInput}
             value={passcodeGuess}
             placeholder={guessedCorrect ? 'Access granted' : 'Input 4 digits'}
             disabled={guessedCorrect}
@@ -156,7 +167,7 @@ const ForgotPasscode = styled.div`
 
 const Clue = styled(ForgotPasscode)`
   color: black;
-  cursor: none;
+  cursor: default;
   margin-top: 4px;
   background-color: ${lightGrey};
 `;
