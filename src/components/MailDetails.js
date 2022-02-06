@@ -47,12 +47,12 @@ const MailDetailContainer = styled.section`
   @media (max-width: 667px) {
     width: 100%;
     margin: 0;
-    padding: 10px;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 100%;
     margin: 0;
-    padding: 10px;
+    padding: 10px 10px 70px 10px;
   }
 `;
 

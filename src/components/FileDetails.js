@@ -39,13 +39,13 @@ const Container = styled.div`
     height: 100%;
     margin: 0;
     border-radius: 0;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 100%;
     height: 100%;
     margin: 0;
     border-radius: 0;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
   }
 `;

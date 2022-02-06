@@ -72,14 +72,14 @@ const MailList = styled.div`
     width: 100%;
     height: 100%;
     min-height: 100%;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
     border-radius: 0;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     width: 100%;
     height: 100%;
     min-height: 100%;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
     border-radius: 0;
   }
 `;

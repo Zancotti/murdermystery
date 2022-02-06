@@ -195,14 +195,14 @@ const FinalReport = styled.div`
     margin: 0;
     border-radius: 0;
     min-width: 300px;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 536px) and (max-width: 1024px) {
     width: 100%;
     margin: 0;
     border-radius: 0;
     min-width: 300px;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
   }
 `;
 
@@ -252,7 +252,7 @@ const Conclusion = styled.div`
   margin: 10px;
   padding: 10px;
   @media (max-width: 667px) {
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 70px 10px;
   }
 `;
 
