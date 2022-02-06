@@ -82,6 +82,35 @@ export const OptionsScreen = () => {
         {!isGuest && <Button onClick={() => saveGame()} text="Save" />}
         <Button onClick={() => restartGame()} text="Restart" />
         <Button onClick={() => logout()} text="Logout" />
+        <h3>About the game</h3>
+        <span>
+          This online game was made by{' '}
+          <a
+            href="https://github.com/zancotti"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Sabrina Zancotti
+          </a>{' '}
+          as my final project for the Technigo frontend developer bootcamp
+          2021/2022.
+        </span>
+        <p>
+          The frontend of MurderMystery was developed in React JS and Redux. The
+          backend was developed in Node.js using Express API and Mongoose and
+          MongoDB for the database.
+        </p>
+        <span>
+          All images of people are from the website{' '}
+          <a
+            href="https://this-person-does-not-exist.com/en"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            this-person-does-not-exist.com
+          </a>{' '}
+          and is an AI generated image.
+        </span>
       </Content>
       <DialogComponent
         text={modalState.text}
