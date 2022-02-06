@@ -1,10 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from '@reduxjs/toolkit';
-import { inbox } from 'reducers/inbox';
-import { persons } from 'reducers/persons';
-import { files } from 'reducers/files';
-import { user } from 'reducers/user';
+import { inbox, persons, files, user, finalReport } from 'reducers';
 import { Main } from 'Main';
 import styled from 'styled-components';
 
@@ -13,6 +10,7 @@ const reducer = combineReducers({
   persons: persons.reducer,
   files: files.reducer,
   user: user.reducer,
+  finalReport: finalReport.reducer,
 });
 
 const persistedStateJSON = localStorage.getItem('ReduxState');

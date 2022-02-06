@@ -3,18 +3,17 @@ import styled from 'styled-components/macro';
 import { lightGrey, white } from 'styles/colors';
 import { useMediaQuery } from 'react-responsive';
 import { Button, InputFinalReport, Container } from 'styledComponents';
+import { useSelector } from 'react-redux';
+import { useSafeDispatch } from 'hooks';
+import { finalReport } from 'reducers';
 
 export const FinalReportScreen = () => {
-  const [reportDetails, setReportDetails] = useState({
-    murderer: '',
-    victim: '',
-    relationship: '',
-    motive: '',
-    inheriter: '',
-  });
-  const { murderer, victim, relationship, motive, inheriter } = reportDetails;
+  const { murderer, victim, relationship, motive, inheritor } = useSelector(
+    state => state.finalReport.reportDetails,
+  );
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+  const dispatch = useSafeDispatch();
 
   let score = 0;
   const totalScore = 5;
@@ -22,7 +21,7 @@ export const FinalReportScreen = () => {
   if (victim.toLowerCase() === 'steven fisher') score++;
   if (relationship.toLowerCase() === 'gardener') score++;
   if (motive.toLowerCase() === 'obsession') score++;
-  if (inheriter.toLowerCase() === 'henry fisher') score++;
+  if (inheritor.toLowerCase() === 'henry fisher') score++;
 
   const playerScore = (score / totalScore) * 100;
 
@@ -42,12 +41,13 @@ export const FinalReportScreen = () => {
                 type="text"
                 placeholder="Name"
                 onChange={event =>
-                  setReportDetails({
-                    ...reportDetails,
-                    murderer: event.target.value,
-                  })
+                  dispatch(
+                    finalReport.actions.setMurderer({
+                      murderer: event.target.value,
+                    }),
+                  )
                 }
-                value={reportDetails.murderer}
+                value={murderer}
                 required={true}
                 disabled={isSubmitClicked}
               />
@@ -56,12 +56,13 @@ export const FinalReportScreen = () => {
                 type="text"
                 placeholder="Name"
                 onChange={event =>
-                  setReportDetails({
-                    ...reportDetails,
-                    victim: event.target.value,
-                  })
+                  dispatch(
+                    finalReport.actions.setVictim({
+                      victim: event.target.value,
+                    }),
+                  )
                 }
-                value={reportDetails.victim}
+                value={victim}
                 required={true}
                 disabled={isSubmitClicked}
               />
@@ -69,13 +70,14 @@ export const FinalReportScreen = () => {
             <RelationshipSection>
               <Span>The killer was the victims</Span>
               <Select
-                defaultValue={reportDetails.relationship}
+                defaultValue={relationship}
                 required
                 onChange={event =>
-                  setReportDetails({
-                    ...reportDetails,
-                    relationship: event.currentTarget.value,
-                  })
+                  dispatch(
+                    finalReport.actions.setRelationship({
+                      relationship: event.target.value,
+                    }),
+                  )
                 }
                 disabled={isSubmitClicked}
               >
@@ -98,13 +100,14 @@ export const FinalReportScreen = () => {
             <MotiveSection>
               <Span>The victim got murdered due to</Span>
               <Select
-                defaultValue={reportDetails.motive}
+                defaultValue={motive}
                 required
                 onChange={event =>
-                  setReportDetails({
-                    ...reportDetails,
-                    motive: event.currentTarget.value,
-                  })
+                  dispatch(
+                    finalReport.actions.setMotive({
+                      motive: event.target.value,
+                    }),
+                  )
                 }
                 disabled={isSubmitClicked}
               >
@@ -113,14 +116,14 @@ export const FinalReportScreen = () => {
                 </option>
                 <option value="colleuge">A conflict within BookFace</option>
                 <option value="blackmail">Being blackmailed</option>
-                <option value="inheritage">Fight about inheritage</option>
+                <option value="inheritance">Fight about inheritance</option>
                 <option value="bookFaceHeir">
                   Fight about who will take over BookFace
                 </option>
                 <option value="obsession">Love and obsession</option>
                 <option value="affair">Having an affair</option>
                 <option value="wifeAffair">
-                  finding out that the partner had an affair
+                  Finding out that the partner had an affair
                 </option>
               </Select>
             </MotiveSection>
@@ -129,12 +132,13 @@ export const FinalReportScreen = () => {
                 type="text"
                 placeholder="Name"
                 onChange={event =>
-                  setReportDetails({
-                    ...reportDetails,
-                    inheriter: event.target.value,
-                  })
+                  dispatch(
+                    finalReport.actions.setInheritor({
+                      inheritor: event.target.value,
+                    }),
+                  )
                 }
-                value={reportDetails.inheriter}
+                value={inheritor}
                 required={true}
                 disabled={isSubmitClicked}
               />
@@ -169,7 +173,7 @@ export const FinalReportScreen = () => {
               : 'It is an interesting theory to why Steven Fisher was murdered, but I am not buying it. The evidence for it is just not there.'}
           </p>
           <p>
-            {inheriter.toLowerCase() === 'henry fisher'
+            {inheritor.toLowerCase() === 'henry fisher'
               ? 'A lot of people are in despair that Henry Fisher is set to take over the familys companies. His sister, Ellen, just seem like a much better fit with her background, dont you think?'
               : 'From the sources and documentation I have read, that it is not who is set to take over Fishers companies.'}
           </p>

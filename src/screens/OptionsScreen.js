@@ -4,7 +4,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { lightGrey } from 'styles/colors';
 import { Button, Container, DialogComponent } from 'styledComponents';
-import { files, persons, inbox, user } from 'reducers';
+import { files, persons, inbox, user, finalReport } from 'reducers';
 import { API_URL } from 'utils/urls';
 import axios from 'axios';
 
@@ -30,6 +30,7 @@ export const OptionsScreen = () => {
       dispatch(files.actions.reset());
       dispatch(persons.actions.reset());
       dispatch(inbox.actions.reset());
+      dispatch(finalReport.actions.reset());
     });
     navigate('/mails');
   };
@@ -40,6 +41,7 @@ export const OptionsScreen = () => {
       dispatch(persons.actions.reset());
       dispatch(inbox.actions.reset());
       dispatch(user.actions.setInitialUser());
+      dispatch(finalReport.actions.reset());
     });
   };
 
