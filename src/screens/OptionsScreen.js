@@ -137,6 +137,7 @@ const Content = styled.div`
     grid-template-rows: auto auto auto auto 1fr 20%;
     width: 100%;
     height: 100%;
+    padding: 10px 10px 70px 10px;
   }
   @media (min-width: 668px) and (max-width: 1024px) {
     grid-template-rows: auto auto auto auto 1fr 20%;
@@ -144,5 +145,6 @@ const Content = styled.div`
     height: 100%;
     margin: 0px;
     border-radius: 0;
+    padding: 10px 10px 70px 10px;
   }
 `;
