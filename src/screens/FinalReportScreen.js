@@ -17,11 +17,11 @@ export const FinalReportScreen = () => {
 
   let score = 0;
   const totalScore = 5;
-  if (murderer.toLowerCase() === 'robert delaware') score++;
-  if (victim.toLowerCase() === 'steven fisher') score++;
+  if (murderer.toLowerCase().trim() === 'robert delaware') score++;
+  if (victim.toLowerCase().trim() === 'steven fisher') score++;
   if (relationship.toLowerCase() === 'gardener') score++;
   if (motive.toLowerCase() === 'obsession') score++;
-  if (inheritor.toLowerCase() === 'henry fisher') score++;
+  if (inheritor.toLowerCase().trim() === 'henry fisher') score++;
 
   const playerScore = (score / totalScore) * 100;
 
@@ -153,12 +153,12 @@ export const FinalReportScreen = () => {
           <h1>Conclusion</h1>
           <Score>{`Score: ${playerScore} %`}</Score>
           <p>
-            {murderer.toLowerCase() === 'robert delaware'
+            {murderer.toLowerCase().trim() === 'robert delaware'
               ? 'I did not see it coming if I am honest. To think that Robert Delaware is capable of murder. I must say, good work that you found and connected the dots.'
               : 'I do understand why you would feel that that is the murderer but I have a gut feeling we are missing something here. I think we need to investigate this more deeply.'}
           </p>
           <p>
-            {victim.toLowerCase() === 'steven fisher'
+            {victim.toLowerCase().trim() === 'steven fisher'
               ? 'Steven Fisher was indeed the person found dead in the Fisher residence. He will be missed by many, even if he did take part of his share of controversey.'
               : 'We are in awe that you would be able to get the victim wrong, did you even read my introduction email? It is Steven Fisher, the famous tech CEO that has died.'}
           </p>
@@ -173,7 +173,7 @@ export const FinalReportScreen = () => {
               : 'It is an interesting theory to why Steven Fisher was murdered, but I am not buying it. The evidence for it is just not there.'}
           </p>
           <p>
-            {inheritor.toLowerCase() === 'henry fisher'
+            {inheritor.toLowerCase().trim() === 'henry fisher'
               ? 'A lot of people are in despair that Henry Fisher is set to take over the familys companies. His sister, Ellen, just seem like a much better fit with her background, dont you think?'
               : 'From the sources and documentation I have read, that it is not who is set to take over Fishers companies.'}
           </p>
