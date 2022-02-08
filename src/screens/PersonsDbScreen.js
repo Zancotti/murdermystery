@@ -63,18 +63,18 @@ export const PersonsDbScreen = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (searchString === '') {
+    if (searchString.trim() === '') {
       return;
     }
 
-    if (nameOnSubmit === searchString) {
+    if (nameOnSubmit === searchString.trim()) {
       setTimeout(() => {
         setIsLoading(false);
       }, 2000);
     }
 
     setIsLoading(true);
-    setNameOnSubmit(searchString);
+    setNameOnSubmit(searchString.trim());
     setSearchString('');
   };
 

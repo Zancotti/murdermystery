@@ -55,16 +55,16 @@ export const FilesDbScreen = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (searchString === '') {
+    if (searchString.trim() === '') {
       return;
     }
     setIsLoading(true);
-    if (fileIdOnSubmit === searchString) {
+    if (fileIdOnSubmit === searchString.trim()) {
       setTimeout(() => {
         setIsLoading(false);
       }, 2000);
     }
-    setFileIdOnSubmit(searchString);
+    setFileIdOnSubmit(searchString.trim());
     setSearchString('');
   };
 
